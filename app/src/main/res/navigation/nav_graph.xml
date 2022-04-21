@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/PlanFragment">
+
+    <fragment
+        android:id="@+id/PlanFragment"
+        android:name="cz.mendelu.xpaseka.bodybeat.PlansFragment"
+        android:label="@string/first_fragment_label"
+        tools:layout="@layout/fragment_plans">
+
+        <action
+            android:id="@+id/action_PlansFragment_to_NewPlanFragment"
+            app:destination="@id/NewPlanFragment" />
+
+        <action
+            android:id="@+id/action_PlansFragment_to_PlanDetailFragment"
+            app:destination="@+id/PlanDetailFragment"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/NewPlanFragment"
+        android:name="cz.mendelu.xpaseka.bodybeat.NewPlanFragment"
+        android:label="@string/second_fragment_label"
+        tools:layout="@layout/fragment_new_plan">
+    </fragment>
+
+    <fragment
+        android:id="@+id/PlanDetailFragment"
+        android:name="cz.mendelu.xpaseka.bodybeat.PlanDetailFragment"
+        android:label="@string/second_fragment_label"
+        tools:layout="@layout/fragment_plan_detail">
+
+        <argument
+            android:name="id"
+            app:argType="long"
+            android:defaultValue="0L">
+        </argument>
+
+    </fragment>
+</navigation>
