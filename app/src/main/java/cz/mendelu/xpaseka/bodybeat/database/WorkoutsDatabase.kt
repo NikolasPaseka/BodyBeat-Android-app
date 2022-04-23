@@ -4,9 +4,10 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import cz.mendelu.xpaseka.bodybeat.model.Exercise
 import cz.mendelu.xpaseka.bodybeat.model.Plan
 
-@Database(entities = [Plan::class], version = 2, exportSchema = true)
+@Database(entities = [Plan::class, Exercise::class], version = 4, exportSchema = true)
 abstract class WorkoutsDatabase: RoomDatabase() {
 
     abstract fun plansDao(): PlansDao
