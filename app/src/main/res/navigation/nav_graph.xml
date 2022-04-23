@@ -33,6 +33,24 @@
         android:label="@string/second_fragment_label"
         tools:layout="@layout/fragment_plan_detail">
 
+        <action
+            android:id="@+id/action_PlanDetailFragment_to_PlanProgressFragment"
+            app:destination="@+id/PlanProgressFragment"/>
+
+        <argument
+            android:name="id"
+            app:argType="long"
+            android:defaultValue="0L">
+        </argument>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/PlanProgressFragment"
+        android:name="cz.mendelu.xpaseka.bodybeat.PlanProgressFragment"
+        android:label="@string/second_fragment_label"
+        tools:layout="@layout/fragment_plan_progress">
+
         <argument
             android:name="id"
             app:argType="long"

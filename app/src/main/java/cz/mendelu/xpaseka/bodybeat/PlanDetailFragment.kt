@@ -62,11 +62,11 @@ class PlanDetailFragment : BaseFragment<FragmentPlanDetailBinding, PlanDetailVie
                 exerciseList.addAll(t!!)
             }
         })
-//        binding.startWorkoutButton.setOnClickListener {
-//            if (exerciseList.size > 0) {
-//                adapter.deleteItem(0)
-//            }
-//        }
+        binding.startWorkoutButton.setOnClickListener {
+            val directions = PlanDetailFragmentDirections.actionPlanDetailFragmentToPlanProgressFragment()
+            directions.id = id
+            findNavController().navigate(directions)
+        }
     }
 
     override fun onActivityCreated() {

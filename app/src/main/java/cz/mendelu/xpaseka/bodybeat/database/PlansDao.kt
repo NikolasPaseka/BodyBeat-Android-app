@@ -17,6 +17,9 @@ interface PlansDao {
     @Query("SELECT * FROM exercises WHERE plan_id = :id")
     fun getExercisesFromPlan(id: Long): LiveData<MutableList<Exercise>>
 
+    @Query("SELECT * FROM exercises WHERE plan_id = :id")
+    fun getExercisesTesting(id: Long): MutableList<Exercise>
+
     @Insert
     fun insert(plan: Plan): Long
 
