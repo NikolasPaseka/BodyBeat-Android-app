@@ -1,33 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".PlanDetailFragment">
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/planTitle"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/TextHeader"
+        app:layout_constraintTop_toTopOf="parent"
+        android:padding="16dp"/>
 
-        <TextView
-            android:id="@+id/planTitle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="" />
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/startWorkoutButton"
+        style="@style/ConfirmButton"
+        android:layout_width="320dp"
+        android:text="@string/start_workout"
+        app:layout_constraintTop_toBottomOf="@id/planTitle"
+        app:layout_constraintBottom_toTopOf="@id/exercisesSpacer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/startWorkoutButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@color/orange"
-            android:text="Start workout"/>
+    <TextView
+        android:id="@+id/exercisesSpacer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/SpacerLabel"
+        android:textAppearance="@style/SpacerLabelText"
+        android:text="@string/exercises"
+        app:layout_constraintTop_toBottomOf="@id/startWorkoutButton"
+        app:layout_constraintBottom_toTopOf="@id/exerciseList"/>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/exerciseList"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/exerciseList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/exercisesSpacer"/>
 
-    </LinearLayout>
-
-</FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

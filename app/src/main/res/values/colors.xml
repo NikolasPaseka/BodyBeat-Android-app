@@ -6,4 +6,5 @@
     <color name="green_darker">#466060</color>
     <color name="green_lighter">#305941</color>
     <color name="orange">#FC814A</color>
+    <color name="grey_sub_text">#A4A3A3</color>
 </resources>

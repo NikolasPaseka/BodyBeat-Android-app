@@ -10,6 +10,7 @@
         <entry key="app/src/main/res/layout/fragment_plan_detail.xml" value="0.2776268115942029" />
         <entry key="app/src/main/res/layout/fragment_plan_progress.xml" value="0.16286727456940223" />
         <entry key="app/src/main/res/layout/fragment_plans.xml" value="0.2776268115942029" />
+        <entry key="app/src/main/res/layout/row_exercise_list.xml" value="0.18161094224924013" />
         <entry key="app/src/main/res/layout/row_plan_list.xml" value="0.2776268115942029" />
       </map>
     </option>

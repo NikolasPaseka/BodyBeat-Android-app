@@ -18,6 +18,7 @@ import cz.mendelu.xpaseka.bodybeat.architecture.BaseFragment
 import cz.mendelu.xpaseka.bodybeat.database.WorkoutsDatabase
 import cz.mendelu.xpaseka.bodybeat.databinding.FragmentPlanDetailBinding
 import cz.mendelu.xpaseka.bodybeat.databinding.FragmentPlansBinding
+import cz.mendelu.xpaseka.bodybeat.databinding.RowExerciseListBinding
 import cz.mendelu.xpaseka.bodybeat.databinding.RowPlanListBinding
 import cz.mendelu.xpaseka.bodybeat.model.Exercise
 import cz.mendelu.xpaseka.bodybeat.model.Plan
@@ -74,18 +75,19 @@ class PlanDetailFragment : BaseFragment<FragmentPlanDetailBinding, PlanDetailVie
 
     inner class ExercisesAdapter : RecyclerView.Adapter<ExercisesAdapter.ExerciseViewHolder>() {
 
-        inner class ExerciseViewHolder(val binding: RowPlanListBinding) : RecyclerView.ViewHolder(binding.root)
+        inner class ExerciseViewHolder(val binding: RowExerciseListBinding) : RecyclerView.ViewHolder(binding.root)
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ExerciseViewHolder {
             return ExerciseViewHolder(
-                RowPlanListBinding
+                RowExerciseListBinding
                     .inflate(LayoutInflater
                         .from(parent.context), parent, false))
         }
 
         override fun onBindViewHolder(holder: ExerciseViewHolder, position: Int) {
             val exercise = exerciseList.get(position)
-            holder.binding.rowPlanTitle.text = exercise.title
+            holder.binding.exerciseName.text = exercise.title
+            holder.binding.exerciseNumbers.text = "${exercise.sets} x ${exercise.repeats}"
         }
 
 //        fun deleteItem(index: Int){
