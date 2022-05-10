@@ -6,6 +6,7 @@
         <entry key="app/src/main/res/layout-v29/activity_main.xml" value="0.2776268115942029" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="app/src/main/res/layout/content_main.xml" value="0.2776268115942029" />
+        <entry key="app/src/main/res/layout/countdown_dialog.xml" value="0.31476449275362317" />
         <entry key="app/src/main/res/layout/fragment_new_plan.xml" value="0.2776268115942029" />
         <entry key="app/src/main/res/layout/fragment_plan_detail.xml" value="0.2776268115942029" />
         <entry key="app/src/main/res/layout/fragment_plan_progress.xml" value="0.16286727456940223" />

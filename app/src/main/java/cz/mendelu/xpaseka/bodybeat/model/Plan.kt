@@ -10,10 +10,10 @@ data class Plan(
     var title: String,
 
     @ColumnInfo(name = "timer_exercises")
-    var timerExercises: Double,
+    var timerExercises: Int,
 
     @ColumnInfo(name = "timer_series")
-    var timerSeries: Double
+    var timerSeries: Int
 
     ) {
     @PrimaryKey(autoGenerate = true)

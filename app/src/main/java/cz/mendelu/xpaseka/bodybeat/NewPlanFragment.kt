@@ -27,8 +27,8 @@ class NewPlanFragment : Fragment() {
 
         binding.fabSavePlan.setOnClickListener {
             val title = binding.newPlanTitle.text.toString()
-            val exerciseTimer: Double = binding.exerciseTimerInput.text.toString().toDouble()
-            val seriesTimer: Double = binding.seriesTimerInput.text.toString().toDouble()
+            val exerciseTimer: Int = binding.exerciseTimerInput.text.toString().toInt()
+            val seriesTimer: Int = binding.seriesTimerInput.text.toString().toInt()
 
             WorkoutsDatabase
                 .getDatabase(requireContext())
