@@ -10,20 +10,9 @@
         android:layout_height="300dp"
         app:cpb_progressbar_color="@color/green_lighter"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/timerCountdown"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
-
-    <ProgressBar
-        android:id="@+id/timerCountdown"
-        style="@android:style/Widget.ProgressBar.Horizontal"
-        android:max="100"
-        android:progress="0"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        />
 
     <TextView
         android:id="@+id/timer"

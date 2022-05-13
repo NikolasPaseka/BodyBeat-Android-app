@@ -1,33 +1,25 @@
 package cz.mendelu.xpaseka.bodybeat
 
-import androidx.lifecycle.ViewModelProvider
-import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import cz.mendelu.xpaseka.bodybeat.architecture.BaseFragment
-import cz.mendelu.xpaseka.bodybeat.database.WorkoutsDatabase
 import cz.mendelu.xpaseka.bodybeat.databinding.FragmentPlanDetailBinding
-import cz.mendelu.xpaseka.bodybeat.databinding.FragmentPlansBinding
 import cz.mendelu.xpaseka.bodybeat.databinding.RowExerciseListBinding
-import cz.mendelu.xpaseka.bodybeat.databinding.RowPlanListBinding
 import cz.mendelu.xpaseka.bodybeat.model.Exercise
-import cz.mendelu.xpaseka.bodybeat.model.Plan
+import kotlinx.coroutines.launch
 
 class PlanDetailFragment : BaseFragment<FragmentPlanDetailBinding, PlanDetailViewModel>(PlanDetailViewModel::class) {
 
     private val arguments: PlanDetailFragmentArgs by navArgs()
 
-    private var exerciseList: MutableList<Exercise> = mutableListOf()
     private lateinit var layoutManager: LinearLayoutManager
     private lateinit var adapter: ExercisesAdapter
 
@@ -35,13 +27,17 @@ class PlanDetailFragment : BaseFragment<FragmentPlanDetailBinding, PlanDetailVie
         get() = FragmentPlanDetailBinding::inflate
 
     override fun initViews() {
-        val id = arguments.id
-        val plan = WorkoutsDatabase
-            .getDatabase(requireContext())
-            .plansDao()
-            .findById(id)
+        viewModel.id = arguments.id
+        lifecycleScope.launch {
+            viewModel.plan = viewModel.getPlan(viewModel.id!!)
+        }.invokeOnCompletion {
+            fillLayout()
+        }
+    }
+
+    private fun fillLayout() {
         val textView: TextView = binding.planTitle
-        textView.text = plan.title
+        textView.text = viewModel.plan.title
 
         val recyclerView = binding.exerciseList
         layoutManager = LinearLayoutManager(requireContext())
@@ -49,23 +45,18 @@ class PlanDetailFragment : BaseFragment<FragmentPlanDetailBinding, PlanDetailVie
         recyclerView.layoutManager = layoutManager
         recyclerView.adapter = adapter
 
-        //exerciseList = WorkoutsDatabase.getDatabase(requireContext()).plansDao().getExercisesFromPlan(id)
-
-        // TODO
-        WorkoutsDatabase.getDatabase(requireContext()).plansDao().getExercisesFromPlan(id)
-        .observe(viewLifecycleOwner, object : Observer<MutableList<Exercise>> {
-            override fun onChanged(t: MutableList<Exercise>?) {
-                val callback = TaskDiffUtils(exerciseList, t!!)
+        viewModel.getExercisesFromPlan(viewModel.id!!)
+            .observe(viewLifecycleOwner) { t ->
+                val callback = TaskDiffUtils(viewModel.exerciseList, t!!)
                 val result = DiffUtil.calculateDiff(callback)
                 result.dispatchUpdatesTo(adapter)
 
-                exerciseList.clear()
-                exerciseList.addAll(t!!)
+                viewModel.exerciseList.clear()
+                viewModel.exerciseList.addAll(t)
             }
-        })
         binding.startWorkoutButton.setOnClickListener {
             val directions = PlanDetailFragmentDirections.actionPlanDetailFragmentToPlanProgressFragment()
-            directions.id = id
+            directions.id = arguments.id
             findNavController().navigate(directions)
         }
     }
@@ -85,7 +76,7 @@ class PlanDetailFragment : BaseFragment<FragmentPlanDetailBinding, PlanDetailVie
         }
 
         override fun onBindViewHolder(holder: ExerciseViewHolder, position: Int) {
-            val exercise = exerciseList.get(position)
+            val exercise = viewModel.exerciseList.get(position)
             holder.binding.exerciseName.text = exercise.title
             holder.binding.exerciseNumbers.text = "${exercise.sets} x ${exercise.repeats}"
         }
@@ -95,7 +86,7 @@ class PlanDetailFragment : BaseFragment<FragmentPlanDetailBinding, PlanDetailVie
 //            notifyDataSetChanged()
 //        }
 
-        override fun getItemCount(): Int = exerciseList.size
+        override fun getItemCount(): Int = viewModel.exerciseList.size
     }
 
     inner class TaskDiffUtils(private val oldList: MutableList<Exercise>, private val newList: MutableList<Exercise>) : DiffUtil.Callback() {

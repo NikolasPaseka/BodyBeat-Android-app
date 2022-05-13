@@ -1,37 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".PlanProgressFragment">
 
-   <LinearLayout
-       android:layout_width="match_parent"
-       android:layout_height="match_parent"
-       android:orientation="vertical">
+        <TextView
+            android:id="@+id/currentExerciseText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Current Exercise"
+            android:textAppearance="@style/TextHeader"
+            android:layout_marginTop="32dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/currentExerciseBlock"/>
 
-       <TextView
-           android:id="@+id/currentExerciseTitle"
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"/>
+        <LinearLayout
+            android:id="@+id/currentExerciseBlock"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@id/currentExerciseText"
+            app:layout_constraintBottom_toTopOf="@id/exerciseDoneButton">
+           <TextView
+               android:id="@+id/currentExerciseTitle"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"/>
 
-       <TextView
-           android:id="@+id/currentSetTitle"
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"/>
+           <TextView
+               android:id="@+id/currentSetTitle"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"/>
+        </LinearLayout>
 
        <com.google.android.material.button.MaterialButton
            android:id="@+id/exerciseDoneButton"
            android:layout_width="wrap_content"
            android:layout_height="wrap_content"
-           android:backgroundTint="@color/orange"
-           android:text="Done"/>
+           style="@style/ConfirmButton"
+           android:text="Done"
+           app:layout_constraintTop_toBottomOf="@id/currentExerciseBlock"
+           app:layout_constraintStart_toStartOf="parent"
+           app:layout_constraintEnd_toEndOf="parent"/>
+
+    <TextView
+        android:id="@+id/upcomingExercisesText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/SpacerLabel"
+        android:textAppearance="@style/SpacerLabelText"
+        android:text="Upcoming exercises"
+        app:layout_constraintTop_toBottomOf="@id/exerciseDoneButton"
+        app:layout_constraintBottom_toTopOf="@id/upcomingExercisesList"/>
 
        <androidx.recyclerview.widget.RecyclerView
            android:id="@+id/upcomingExercisesList"
            android:layout_width="match_parent"
-           android:layout_height="wrap_content"/>
+           android:layout_height="wrap_content"
+           app:layout_constraintTop_toBottomOf="@id/upcomingExercisesText"/>
 
-   </LinearLayout>
-
-</FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

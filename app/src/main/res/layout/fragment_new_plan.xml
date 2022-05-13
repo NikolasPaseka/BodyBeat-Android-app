@@ -11,12 +11,11 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/newPlanTitle"
+        <cz.mendelu.xpaseka.bodybeat.view.TextInputView
+            android:id="@+id/workoutPlanTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Title"
-            android:inputType="text"/>
+            app:hint="Workout title"/>
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/exerciseTimerInput"

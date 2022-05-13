@@ -12,20 +12,20 @@ interface PlansDao {
     fun getAll(): LiveData<MutableList<Plan>>
 
     @Query("SELECT * FROM plans WHERE id = :id")
-    fun findById(id: Long): Plan
+    suspend fun findById(id: Long): Plan
 
     @Query("SELECT * FROM exercises WHERE plan_id = :id")
     fun getExercisesFromPlan(id: Long): LiveData<MutableList<Exercise>>
 
     @Query("SELECT * FROM exercises WHERE plan_id = :id")
-    fun getExercisesTesting(id: Long): MutableList<Exercise>
+    suspend fun getExercisesTesting(id: Long): MutableList<Exercise>
 
     @Insert
-    fun insert(plan: Plan): Long
+    suspend fun insert(plan: Plan): Long
 
     @Update
-    fun update(plan: Plan)
+    suspend fun update(plan: Plan)
 
     @Delete
-    fun delete(plan: Plan)
+    suspend fun delete(plan: Plan)
 }

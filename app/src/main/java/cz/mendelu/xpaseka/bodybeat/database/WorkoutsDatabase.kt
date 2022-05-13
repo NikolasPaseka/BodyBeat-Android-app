@@ -22,7 +22,6 @@ abstract class WorkoutsDatabase: RoomDatabase() {
                             context.applicationContext,
                             WorkoutsDatabase::class.java, "workouts_database"
                         ).fallbackToDestructiveMigration()
-                            .allowMainThreadQueries()
                             .build()
                     }
                 }

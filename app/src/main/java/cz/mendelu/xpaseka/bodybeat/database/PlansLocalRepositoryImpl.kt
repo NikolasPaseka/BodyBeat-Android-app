@@ -1,6 +1,7 @@
 package cz.mendelu.xpaseka.bodybeat.database
 
 import androidx.lifecycle.LiveData
+import cz.mendelu.xpaseka.bodybeat.model.Exercise
 import cz.mendelu.xpaseka.bodybeat.model.Plan
 
 class PlansLocalRepositoryImpl(private val plansDao: PlansDao) : IPlansLocalRepository {
@@ -8,19 +9,23 @@ class PlansLocalRepositoryImpl(private val plansDao: PlansDao) : IPlansLocalRepo
         return plansDao.getAll()
     }
 
-    override fun findById(id: Long): Plan {
+    override suspend fun findById(id: Long): Plan {
         return plansDao.findById(id)
     }
 
-    override fun insert(plan: Plan): Long {
+    override suspend fun insert(plan: Plan): Long {
         return plansDao.insert(plan)
     }
 
-    override fun update(plan: Plan) {
+    override fun getExercisesFromPlan(id: Long): LiveData<MutableList<Exercise>> {
+        return plansDao.getExercisesFromPlan(id)
+    }
+
+    override suspend fun update(plan: Plan) {
         plansDao.update(plan)
     }
 
-    override fun delete(plan: Plan) {
+    override suspend fun delete(plan: Plan) {
         plansDao.delete(plan)
     }
 }
