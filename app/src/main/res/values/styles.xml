@@ -20,6 +20,21 @@
         <item name="android:layout_height">60dp</item>
     </style>
 
+    <style name="EditButton">
+        <item name="backgroundTint">@color/green_lighter</item>
+        <item name="android:layout_height">70dp</item>
+        <item name="android:textAppearance">@style/TextHeader</item>
+        <item name="shapeAppearanceOverlay">@style/MyShapeAppearance</item>
+    </style>
+
+    <style name="MyShapeAppearance">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopRight">32dp</item>
+        <item name="cornerSizeBottomRight">32dp</item>
+        <item name="cornerSizeTopLeft">32dp</item>
+        <item name="cornerSizeBottomLeft">32dp</item>
+    </style>
+
     <style name="SpacerLabelText">
         <item name="android:textColor">@color/white</item>
         <item name="android:textSize">14sp</item>
@@ -30,5 +45,10 @@
         <item name="android:padding">6dp</item>
         <item name="android:layout_marginTop">30dp</item>
         <item name="android:layout_marginBottom">30dp</item>
+    </style>
+
+    <style name="NumberPickerText">
+        <item name="android:textSize">32sp</item>
+        <item name="colorControlNormal">@color/green_lighter</item>
     </style>
 </resources>

@@ -73,9 +73,10 @@ class PlansFragment : BaseFragment<FragmentPlansBinding, PlansViewModel>(PlansVi
 
             // nastaveni sudy radku na jinou barvu, musi se resit recyklace - vyresit elsem
             if (position % 2 == 0) {
-                holder.binding.root.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.green_lighter))
+                //holder.binding.root.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.green_lighter))
+                holder.binding.rowPlanTitleCard.setCardBackgroundColor(ContextCompat.getColor(requireContext(), R.color.green_lighter))
             } else {
-                holder.binding.root.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.green_darker))
+                holder.binding.rowPlanTitleCard.setCardBackgroundColor(ContextCompat.getColor(requireContext(), R.color.green_darker))
             }
 
             holder.binding.root.setOnClickListener {

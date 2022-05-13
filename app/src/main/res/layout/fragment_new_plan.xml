@@ -1,33 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".NewPlanFragment">
 
-    <LinearLayout
+
+    <cz.mendelu.xpaseka.bodybeat.view.TextInputView
+        android:id="@+id/workoutPlanTitle"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        app:hint="Workout title"
+        app:layout_constraintTop_toTopOf="parent"/>
 
-        <cz.mendelu.xpaseka.bodybeat.view.TextInputView
-            android:id="@+id/workoutPlanTitle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:hint="Workout title"/>
+    <LinearLayout
+        android:id="@+id/timers"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_margin="16dp"
+        app:layout_constraintTop_toBottomOf="@id/workoutPlanTitle">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/exerciseTimerInput"
-            android:layout_width="match_parent"
+        <LinearLayout
+            android:id="@+id/exerciseTimerBlock"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:inputType="number"/>
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            app:layout_constraintTop_toBottomOf="@id/workoutPlanTitle"
+            app:layout_constraintEnd_toStartOf="@id/seriesTimerBlock">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/seriesTimerInput"
-            android:layout_width="match_parent"
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/TextHeader"
+                android:textAlignment="center"
+                android:text="Exercise timer"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/exerciseTimerButton"
+                android:layout_width="140dp"
+                style="@style/EditButton"
+                android:text="0:00"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/seriesTimerBlock"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:inputType="number"/>
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            app:layout_constraintTop_toBottomOf="@id/workoutPlanTitle"
+            app:layout_constraintStart_toEndOf="@id/exerciseTimerBlock">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/TextHeader"
+                android:textAlignment="center"
+                android:text="Series timer"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/seriesTimerButton"
+                android:layout_width="140dp"
+                style="@style/EditButton"
+                android:text="0:00"/>
+        </LinearLayout>
+
     </LinearLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -37,6 +79,8 @@
         android:layout_gravity="bottom|end"
         android:layout_marginEnd="@dimen/fab_margin"
         android:layout_marginBottom="16dp"
-        app:srcCompat="@android:drawable/ic_menu_save" />
+        app:srcCompat="@android:drawable/ic_menu_save"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

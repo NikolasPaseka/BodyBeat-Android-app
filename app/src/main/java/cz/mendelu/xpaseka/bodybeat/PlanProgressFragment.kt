@@ -1,6 +1,8 @@
 package cz.mendelu.xpaseka.bodybeat
 
 import android.app.AlertDialog
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.CountDownTimer
 import android.util.Log
 import android.view.LayoutInflater
@@ -13,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.mikhaellopez.circularprogressbar.CircularProgressBar
 import cz.mendelu.xpaseka.bodybeat.architecture.BaseFragment
 import cz.mendelu.xpaseka.bodybeat.database.WorkoutsDatabase
-import cz.mendelu.xpaseka.bodybeat.databinding.CountdownDialogBinding
+import cz.mendelu.xpaseka.bodybeat.databinding.DialogCountdownBinding
 import cz.mendelu.xpaseka.bodybeat.databinding.FragmentPlanProgressBinding
 import cz.mendelu.xpaseka.bodybeat.databinding.RowPlanListBinding
 import cz.mendelu.xpaseka.bodybeat.model.Exercise
@@ -32,8 +34,6 @@ class PlanProgressFragment : BaseFragment<FragmentPlanProgressBinding, PlanProgr
 
     override fun initViews() {
         print(arguments.id)
-        print("ahoj")
-        Log.i("test", "lol")
 
         val recyclerView = binding.upcomingExercisesList
         layoutManager = LinearLayoutManager(requireContext())
@@ -99,12 +99,13 @@ class PlanProgressFragment : BaseFragment<FragmentPlanProgressBinding, PlanProgr
     }
 
     private fun setUpCountdownDialog(timer: Int) {
-        val countdownDialogBinding = CountdownDialogBinding.inflate(LayoutInflater.from(requireContext()))
+        val countdownDialogBinding = DialogCountdownBinding.inflate(LayoutInflater.from(requireContext()))
         val dialogBuilder = AlertDialog.Builder(requireContext())
             .setView(countdownDialogBinding.root)
             .setCancelable(true)
             // change to false in production
         val countdownDialog = dialogBuilder.show()
+        countdownDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
         val circularProgressBar = countdownDialogBinding.circularProgressBar
         circularProgressBar.apply {
@@ -149,8 +150,7 @@ class PlanProgressFragment : BaseFragment<FragmentPlanProgressBinding, PlanProgr
 
         fun deleteItem(index: Int): Exercise{
             val exercise = viewModel.exerciseList.removeAt(index)
-            //notifyDataSetChanged()
-            Log.i("test", exercise.title)
+            notifyDataSetChanged()
             return exercise
         }
 
