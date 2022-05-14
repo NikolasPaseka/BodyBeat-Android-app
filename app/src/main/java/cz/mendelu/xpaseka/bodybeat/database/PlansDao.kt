@@ -23,6 +23,9 @@ interface PlansDao {
     @Insert
     suspend fun insert(plan: Plan): Long
 
+    @Insert
+    suspend fun insertExercise(exercise: Exercise): Long
+
     @Update
     suspend fun update(plan: Plan)
 

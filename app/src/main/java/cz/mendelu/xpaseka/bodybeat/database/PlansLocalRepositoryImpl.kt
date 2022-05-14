@@ -17,6 +17,10 @@ class PlansLocalRepositoryImpl(private val plansDao: PlansDao) : IPlansLocalRepo
         return plansDao.insert(plan)
     }
 
+    override suspend fun insertExercise(exercise: Exercise): Long {
+        return plansDao.insertExercise(exercise)
+    }
+
     override fun getExercisesFromPlan(id: Long): LiveData<MutableList<Exercise>> {
         return plansDao.getExercisesFromPlan(id)
     }

@@ -25,6 +25,28 @@
         android:name="cz.mendelu.xpaseka.bodybeat.NewPlanFragment"
         android:label="@string/second_fragment_label"
         tools:layout="@layout/fragment_new_plan">
+
+        <action
+            android:id="@+id/action_NewPlanFragment_to_ManageExercisesFragment"
+            app:destination="@id/ManageExercisesFragment"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/ManageExercisesFragment"
+        android:name="cz.mendelu.xpaseka.bodybeat.ManageExercisesFragment"
+        android:label="@string/second_fragment_label"
+        tools:layout="@layout/fragment_manage_exercises">
+
+        <action
+            android:id="@+id/action_MananageExercicesFragment_to_AddExerciseFragment"
+            app:destination="@id/AddExerciseFragment"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/AddExerciseFragment"
+        android:name="cz.mendelu.xpaseka.bodybeat.AddExerciseFragment"
+        android:label="@string/second_fragment_label"
+        tools:layout="@layout/fragment_add_exercise">
     </fragment>
 
     <fragment

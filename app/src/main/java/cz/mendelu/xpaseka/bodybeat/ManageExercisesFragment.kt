@@ -1,42 +1,35 @@
 package cz.mendelu.xpaseka.bodybeat
 
+import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import androidx.lifecycle.lifecycleScope
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import cz.mendelu.xpaseka.bodybeat.architecture.BaseFragment
-import cz.mendelu.xpaseka.bodybeat.databinding.FragmentPlanDetailBinding
+import cz.mendelu.xpaseka.bodybeat.databinding.FragmentManageExercisesBinding
 import cz.mendelu.xpaseka.bodybeat.databinding.RowExerciseListBinding
 import cz.mendelu.xpaseka.bodybeat.model.Exercise
-import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
-class PlanDetailFragment : BaseFragment<FragmentPlanDetailBinding, PlanDetailViewModel>(PlanDetailViewModel::class) {
+class ManageExercisesFragment : Fragment() {
 
-    private val arguments: PlanDetailFragmentArgs by navArgs()
+    private lateinit var binding: FragmentManageExercisesBinding
+    private val vm by sharedViewModel<NewPlanViewModel>()
 
     private lateinit var layoutManager: LinearLayoutManager
-    private lateinit var adapter: ExercisesAdapter
+    private lateinit var adapter: ManageExercisesFragment.ExercisesAdapter
 
-    override val bindingInflater: (LayoutInflater) -> FragmentPlanDetailBinding
-        get() = FragmentPlanDetailBinding::inflate
-
-    override fun initViews() {
-        viewModel.id = arguments.id
-        lifecycleScope.launch {
-            viewModel.plan = viewModel.getPlan(viewModel.id!!)
-        }.invokeOnCompletion {
-            fillLayout()
-        }
-    }
-
-    private fun fillLayout() {
-        val textView: TextView = binding.planTitle
-        textView.text = viewModel.plan.title
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        binding = FragmentManageExercisesBinding.inflate(inflater, container, false)
 
         val recyclerView = binding.exerciseList
         layoutManager = LinearLayoutManager(requireContext())
@@ -44,23 +37,21 @@ class PlanDetailFragment : BaseFragment<FragmentPlanDetailBinding, PlanDetailVie
         recyclerView.layoutManager = layoutManager
         recyclerView.adapter = adapter
 
-        viewModel.getExercisesFromPlan(viewModel.id!!)
+        vm.exerciseList
             .observe(viewLifecycleOwner) { t ->
-                val callback = TaskDiffUtils(viewModel.exerciseList, t!!)
+                val callback = TaskDiffUtils(vm.exercises, t!!)
                 val result = DiffUtil.calculateDiff(callback)
                 result.dispatchUpdatesTo(adapter)
 
-                viewModel.exerciseList.clear()
-                viewModel.exerciseList.addAll(t)
+                vm.exercises.clear()
+                vm.exercises.addAll(t)
             }
-        binding.startWorkoutButton.setOnClickListener {
-            val directions = PlanDetailFragmentDirections.actionPlanDetailFragmentToPlanProgressFragment()
-            directions.id = arguments.id
-            findNavController().navigate(directions)
-        }
-    }
 
-    override fun onActivityCreated() {
+        binding.fab.setOnClickListener {
+            findNavController().navigate(ManageExercisesFragmentDirections.actionMananageExercicesFragmentToAddExerciseFragment())
+        }
+
+        return binding.root
     }
 
     inner class ExercisesAdapter : RecyclerView.Adapter<ExercisesAdapter.ExerciseViewHolder>() {
@@ -75,12 +66,12 @@ class PlanDetailFragment : BaseFragment<FragmentPlanDetailBinding, PlanDetailVie
         }
 
         override fun onBindViewHolder(holder: ExerciseViewHolder, position: Int) {
-            val exercise = viewModel.exerciseList.get(position)
+            val exercise = vm.exercises.get(position)
             holder.binding.exerciseName.text = exercise.title
             holder.binding.exerciseNumbers.text = "${exercise.sets} x ${exercise.repeats}"
         }
 
-        override fun getItemCount(): Int = viewModel.exerciseList.size
+        override fun getItemCount(): Int = vm.exercises.size
     }
 
     inner class TaskDiffUtils(private val oldList: MutableList<Exercise>, private val newList: MutableList<Exercise>) : DiffUtil.Callback() {

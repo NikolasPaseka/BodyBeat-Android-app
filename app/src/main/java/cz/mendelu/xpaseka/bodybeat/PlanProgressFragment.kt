@@ -4,7 +4,6 @@ import android.app.AlertDialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.CountDownTimer
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
@@ -12,14 +11,11 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.mikhaellopez.circularprogressbar.CircularProgressBar
 import cz.mendelu.xpaseka.bodybeat.architecture.BaseFragment
-import cz.mendelu.xpaseka.bodybeat.database.WorkoutsDatabase
 import cz.mendelu.xpaseka.bodybeat.databinding.DialogCountdownBinding
 import cz.mendelu.xpaseka.bodybeat.databinding.FragmentPlanProgressBinding
 import cz.mendelu.xpaseka.bodybeat.databinding.RowPlanListBinding
 import cz.mendelu.xpaseka.bodybeat.model.Exercise
-import cz.mendelu.xpaseka.bodybeat.model.Plan
 import kotlinx.coroutines.launch
 
 class PlanProgressFragment : BaseFragment<FragmentPlanProgressBinding, PlanProgressViewModel>(PlanProgressViewModel::class){

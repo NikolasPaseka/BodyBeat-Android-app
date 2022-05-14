@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".AddExerciseFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <cz.mendelu.xpaseka.bodybeat.view.TextInputView
+            android:id="@+id/exerciseTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:hint="Exercise title"/>
+
+        <cz.mendelu.xpaseka.bodybeat.view.TextInputView
+            android:id="@+id/repeats"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:hint="Repeats"/>
+
+        <cz.mendelu.xpaseka.bodybeat.view.TextInputView
+            android:id="@+id/sets"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:hint="Sets"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/addExerciseButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add exercise"/>
+
+    </LinearLayout>
+
+</FrameLayout>

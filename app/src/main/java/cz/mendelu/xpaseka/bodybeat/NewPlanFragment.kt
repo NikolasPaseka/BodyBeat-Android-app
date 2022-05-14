@@ -3,24 +3,35 @@ package cz.mendelu.xpaseka.bodybeat
 import android.app.AlertDialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import cz.mendelu.xpaseka.bodybeat.architecture.BaseFragment
 import cz.mendelu.xpaseka.bodybeat.databinding.DialogTimerBinding
 import cz.mendelu.xpaseka.bodybeat.databinding.FragmentNewPlanBinding
 import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
-class NewPlanFragment : BaseFragment<FragmentNewPlanBinding, NewPlanViewModel>(NewPlanViewModel::class) {
+class NewPlanFragment : Fragment() {
+
+    private lateinit var binding: FragmentNewPlanBinding
+    private val vm by sharedViewModel<NewPlanViewModel>()
 
     enum class TimerDialogType {
         EXERCISE, SERIES
     }
 
-    override val bindingInflater: (LayoutInflater) -> FragmentNewPlanBinding
-        get() = FragmentNewPlanBinding::inflate
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        binding = FragmentNewPlanBinding.inflate(inflater, container, false)
 
-    override fun initViews() {
         binding.exerciseTimerButton.setOnClickListener {
             setUpTimerDialog(TimerDialogType.EXERCISE)
         }
@@ -28,16 +39,25 @@ class NewPlanFragment : BaseFragment<FragmentNewPlanBinding, NewPlanViewModel>(N
             setUpTimerDialog(TimerDialogType.SERIES)
         }
 
+        binding.manageExercisesButton.setOnClickListener {
+            findNavController().navigate(NewPlanFragmentDirections.actionNewPlanFragmentToManageExercisesFragment())
+        }
 
         binding.fabSavePlan.setOnClickListener {
-            viewModel.plan.title = binding.workoutPlanTitle.text
+            vm.plan.title = binding.workoutPlanTitle.text
 
             lifecycleScope.launch {
-                viewModel.insertPlan()
+                vm.insertPlan()
+                vm.exercises.forEach { e ->
+                    e.planId = vm.planId
+                    vm.insertExercise(e)
+                }
             }.invokeOnCompletion {
                 findNavController().popBackStack()
             }
         }
+
+        return binding.root
     }
 
     private fun setUpTimerDialog(dialogType: TimerDialogType) {
@@ -50,11 +70,11 @@ class NewPlanFragment : BaseFragment<FragmentNewPlanBinding, NewPlanViewModel>(N
 
         timerDialogBinding.saveButton.setOnClickListener {
             if (dialogType == TimerDialogType.EXERCISE) {
-                viewModel.plan.timerExercises = timerDialogBinding.timePickers.timeInSeconds
-                binding.exerciseTimerButton.text = getTimerText(viewModel.plan.timerExercises)
+                vm.plan.timerExercises = timerDialogBinding.timePickers.timeInSeconds
+                binding.exerciseTimerButton.text = getTimerText(vm.plan.timerExercises)
             } else {
-                viewModel.plan.timerSeries = timerDialogBinding.timePickers.timeInSeconds
-                binding.seriesTimerButton.text = getTimerText(viewModel.plan.timerSeries)
+                vm.plan.timerSeries = timerDialogBinding.timePickers.timeInSeconds
+                binding.seriesTimerButton.text = getTimerText(vm.plan.timerSeries)
             }
             timerDialog.dismiss()
         }
@@ -71,10 +91,6 @@ class NewPlanFragment : BaseFragment<FragmentNewPlanBinding, NewPlanViewModel>(N
             "${value % 60}"
         }
         return "${value / 60}:${seconds}"
-    }
-
-    override fun onActivityCreated() {
-
     }
 
 }

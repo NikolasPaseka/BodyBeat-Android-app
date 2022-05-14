@@ -25,11 +25,11 @@ data class Exercise(
 
     @ColumnInfo(name = "sets")
     var sets: Int,
-
-    @ColumnInfo(name = "plan_id")
-    var planId: Long
 ) {
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
     var id: Long? = null
+
+    @ColumnInfo(name = "plan_id")
+    var planId: Long? = null
 }
