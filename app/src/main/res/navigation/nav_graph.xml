@@ -3,10 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/PlanFragment">
+    app:startDestination="@id/PlansFragment">
 
     <fragment
-        android:id="@+id/PlanFragment"
+        android:id="@+id/PlansFragment"
         android:name="cz.mendelu.xpaseka.bodybeat.PlansFragment"
         android:label="@string/first_fragment_label"
         tools:layout="@layout/fragment_plans">
@@ -79,5 +79,13 @@
             android:defaultValue="0L">
         </argument>
 
+    </fragment>
+
+    <!--  Schedule  -->
+    <fragment
+        android:id="@+id/ScheduleFragment"
+        android:name="cz.mendelu.xpaseka.bodybeat.ScheduleFragment"
+        android:label="@string/first_fragment_label"
+        tools:layout="@layout/fragment_schedule">
     </fragment>
 </navigation>

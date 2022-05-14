@@ -69,7 +69,4 @@ dependencies {
 
     // Circular Progress Bar library
     implementation 'com.mikhaellopez:circularprogressbar:3.1.0'
-
-    // New Splash Screen API
-    implementation 'androidx.core:core-splashscreen:1.0.0-beta02'
 }

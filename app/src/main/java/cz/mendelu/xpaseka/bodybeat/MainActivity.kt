@@ -9,7 +9,9 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import android.view.Menu
 import android.view.MenuItem
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.fragment.app.Fragment
 import cz.mendelu.xpaseka.bodybeat.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -30,6 +32,25 @@ class MainActivity : AppCompatActivity() {
         val navController = findNavController(R.id.nav_host_fragment_content_main)
         appBarConfiguration = AppBarConfiguration(navController.graph)
         setupActionBarWithNavController(navController, appBarConfiguration)
+
+       setBottomNavListeners()
+    }
+
+    private fun setBottomNavListeners() {
+        binding.bottomNav.setOnItemSelectedListener { item ->
+            when(item.itemId) {
+                R.id.ic_plans -> replaceFragment(R.id.PlansFragment)
+                R.id.ic_schedule -> replaceFragment(R.id.ScheduleFragment)
+            }
+            true
+        }
+    }
+
+    private fun replaceFragment(fragmentId: Int) {
+//            val transaction = supportFragmentManager.beginTransaction()
+//            transaction.replace(R.id.nav_host_fragment_content_main, fragment)
+//            transaction.commit()
+            findNavController(R.id.nav_host_fragment_content_main).navigate(fragmentId)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -53,4 +74,5 @@ class MainActivity : AppCompatActivity() {
         return navController.navigateUp(appBarConfiguration)
                 || super.onSupportNavigateUp()
     }
+
 }
