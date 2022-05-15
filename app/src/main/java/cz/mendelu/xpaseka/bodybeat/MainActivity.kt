@@ -9,6 +9,7 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
@@ -30,10 +31,35 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(binding.toolbar)
 
         val navController = findNavController(R.id.nav_host_fragment_content_main)
-        appBarConfiguration = AppBarConfiguration(navController.graph)
-        setupActionBarWithNavController(navController, appBarConfiguration)
 
-       setBottomNavListeners()
+        appBarConfiguration = AppBarConfiguration(
+            setOf(
+                R.id.PlansFragment,
+                R.id.ScheduleFragment
+            )
+        )
+        setupActionBarWithNavController(navController!!, appBarConfiguration!!)
+
+//        appBarConfiguration = AppBarConfiguration(navController.graph)
+//        setupActionBarWithNavController(navController, appBarConfiguration)
+
+        navController.addOnDestinationChangedListener { controller, destination, arguments ->
+            manageMainScreen(destination.id)
+        }
+
+        setBottomNavListeners()
+    }
+
+    private fun manageMainScreen(fragmentId: Int){
+        if (fragmentId != R.id.PlanProgressFragment) {
+            runOnUiThread {
+                binding.bottomNav.visibility = View.VISIBLE
+            }
+        } else {
+            runOnUiThread {
+                binding.bottomNav.visibility = View.GONE
+            }
+        }
     }
 
     private fun setBottomNavListeners() {
@@ -71,8 +97,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.nav_host_fragment_content_main)
-        return navController.navigateUp(appBarConfiguration)
-                || super.onSupportNavigateUp()
+        return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
 
 }

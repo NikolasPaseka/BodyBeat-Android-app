@@ -31,4 +31,11 @@ class TimerPickerView @JvmOverloads constructor(
         binding.secondsPicker.minValue = 0
         binding.secondsPicker.maxValue = 60
     }
+
+    fun fillOutTimer(value: Int) {
+        val minutes: Int = value / 60
+        val seconds: Int = value % 60
+        binding.minutesPicker.value = minutes
+        binding.secondsPicker.value = seconds
+    }
 }

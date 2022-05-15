@@ -57,6 +57,8 @@ class NewPlanFragment : Fragment() {
             }
         }
 
+        fillUpTimers()
+
         return binding.root
     }
 
@@ -67,6 +69,12 @@ class NewPlanFragment : Fragment() {
             .setCancelable(true)
         val timerDialog = dialogBuilder.show()
         timerDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+        if (dialogType == TimerDialogType.EXERCISE) {
+            timerDialogBinding.timePickers.fillOutTimer(vm.plan.timerExercises)
+        } else {
+            timerDialogBinding.timePickers.fillOutTimer(vm.plan.timerSeries)
+        }
 
         timerDialogBinding.saveButton.setOnClickListener {
             if (dialogType == TimerDialogType.EXERCISE) {
@@ -82,6 +90,11 @@ class NewPlanFragment : Fragment() {
         timerDialogBinding.closeButton.setOnClickListener {
             timerDialog.dismiss()
         }
+    }
+
+    private fun fillUpTimers() {
+        binding.exerciseTimerButton.text = getTimerText(vm.plan.timerExercises)
+        binding.seriesTimerButton.text = getTimerText(vm.plan.timerSeries)
     }
 
     private fun getTimerText(value: Int): String {
