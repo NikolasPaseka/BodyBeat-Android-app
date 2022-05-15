@@ -6,11 +6,14 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import cz.mendelu.xpaseka.bodybeat.model.Exercise
 import cz.mendelu.xpaseka.bodybeat.model.Plan
+import cz.mendelu.xpaseka.bodybeat.model.Schedule
 
-@Database(entities = [Plan::class, Exercise::class], version = 2, exportSchema = true)
+@Database(entities = [Plan::class, Exercise::class, Schedule::class],
+    version = 1, exportSchema = true)
 abstract class WorkoutsDatabase: RoomDatabase() {
 
     abstract fun plansDao(): PlansDao
+    abstract fun scheduleDao(): ScheduleDao
 
     companion object {
         private var INSTANCE: WorkoutsDatabase? = null

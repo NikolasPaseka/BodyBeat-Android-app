@@ -51,4 +51,8 @@
         <item name="android:textSize">32sp</item>
         <item name="colorControlNormal">@color/green_lighter</item>
     </style>
+
+    <style name="DayPicker">
+        <item name="android:padding">12dp</item>
+    </style>
 </resources>

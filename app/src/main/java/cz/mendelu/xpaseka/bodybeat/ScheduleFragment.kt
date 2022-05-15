@@ -1,31 +1,117 @@
 package cz.mendelu.xpaseka.bodybeat
 
-import androidx.lifecycle.ViewModelProvider
-import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
+import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import cz.mendelu.xpaseka.bodybeat.architecture.BaseFragment
+import cz.mendelu.xpaseka.bodybeat.databinding.FragmentScheduleBinding
+import cz.mendelu.xpaseka.bodybeat.databinding.RowPlanListBinding
+import cz.mendelu.xpaseka.bodybeat.model.Plan
+import cz.mendelu.xpaseka.bodybeat.view.WeekDayPickerView
+import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
+import java.util.*
 
-class ScheduleFragment : Fragment() {
 
-    companion object {
-        fun newInstance() = ScheduleFragment()
+class ScheduleFragment : BaseFragment<FragmentScheduleBinding, ScheduleViewModel>(ScheduleViewModel::class) {
+
+    private lateinit var layoutManager: LinearLayoutManager
+    private lateinit var adapter: ScheduleAdapter
+
+    override val bindingInflater: (LayoutInflater) -> FragmentScheduleBinding
+        get() = FragmentScheduleBinding::inflate
+
+    override fun initViews() {
+        initWeekDayPicker()
+
+        layoutManager = LinearLayoutManager(requireContext())
+        adapter = ScheduleAdapter()
+        binding.scheduleList.layoutManager = layoutManager
+        binding.scheduleList.adapter = adapter
+
+        loadDaySchedule("monday")
+        binding.mondayPicker.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.orange))
     }
 
-    private lateinit var viewModel: ScheduleViewModel
+    override fun onActivityCreated() {
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_schedule, container, false)
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(ScheduleViewModel::class.java)
-        // TODO: Use the ViewModel
+    inner class WeekDayOnClick(private val dayPicker: WeekDayPickerView) : View.OnClickListener {
+        override fun onClick(p0: View?) {
+            resetWeekDayPicker()
+            dayPicker.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.orange))
+            loadDaySchedule(dayPicker.day)
+        }
     }
 
+    private fun loadDaySchedule(day: String) {
+        lifecycleScope.launch {
+            viewModel.schedule = (viewModel.getScheduleByDay(day))
+            viewModel.loadPlansBySchedule()
+        }.invokeOnCompletion {
+            adapter.notifyListChange(0, viewModel.schedule.size+1)
+        }
+    }
+
+    inner class ScheduleAdapter : RecyclerView.Adapter<ScheduleAdapter.ScheduleViewHolder>() {
+
+        inner class ScheduleViewHolder(val binding: RowPlanListBinding) : RecyclerView.ViewHolder(binding.root)
+
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ScheduleViewHolder {
+            return ScheduleViewHolder(
+                RowPlanListBinding
+                    .inflate(LayoutInflater
+                        .from(parent.context), parent, false))
+        }
+
+        override fun onBindViewHolder(holder: ScheduleViewHolder, position: Int) {
+            val schedule = viewModel.schedule.get(position)
+            val plan = viewModel.plans.get(position)
+
+            val time = Date(schedule.time * 1000)
+            val dateFormatter = SimpleDateFormat("HH:mm", Locale.US)
+            holder.binding.rowPlanTitle.text = "${plan.title} ${dateFormatter.format(time)}"
+
+//            holder.binding.root.setOnClickListener {
+//                val id: Long = schedule.id!!
+//                val directions = PlansFragmentDirections.actionPlansFragmentToPlanDetailFragment()
+//                directions.id = id
+//                findNavController().navigate(directions)
+//            }
+            // textcolor
+            // holder.binding.personName.setTextColor(textColor)
+        }
+
+        override fun getItemCount(): Int = viewModel.schedule.size
+
+        fun notifyListChange(start: Int, end: Int) {
+            notifyItemRangeChanged(start, end)
+        }
+    }
+
+    private fun initWeekDayPicker() {
+        binding.mondayPicker.setOnClickListener(WeekDayOnClick(binding.mondayPicker))
+        binding.tuesdayPicker.setOnClickListener(WeekDayOnClick(binding.tuesdayPicker))
+        binding.wednesdayPicker.setOnClickListener(WeekDayOnClick(binding.wednesdayPicker))
+        binding.thursdayPicker.setOnClickListener(WeekDayOnClick(binding.thursdayPicker))
+        binding.fridayPicker.setOnClickListener(WeekDayOnClick(binding.fridayPicker))
+        binding.saturdayPicker.setOnClickListener(WeekDayOnClick(binding.saturdayPicker))
+        binding.sundayPicker.setOnClickListener(WeekDayOnClick(binding.sundayPicker))
+    }
+
+    private fun resetWeekDayPicker() {
+        binding.mondayPicker.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.grey_background))
+        binding.tuesdayPicker.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.grey_background))
+        binding.wednesdayPicker.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.grey_background))
+        binding.thursdayPicker.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.grey_background))
+        binding.fridayPicker.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.grey_background))
+        binding.saturdayPicker.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.grey_background))
+        binding.sundayPicker.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.grey_background))
+    }
 }

@@ -9,7 +9,7 @@ import cz.mendelu.xpaseka.bodybeat.model.Plan
 
 class NewPlanViewModel(private val repository: IPlansLocalRepository) : ViewModel() {
 
-    val plan = Plan("", 0, 0)
+    var plan = Plan("", 0, 0)
     var planId: Long? = null
 
     val exerciseList = MutableLiveData<MutableList<Exercise>>()

@@ -17,4 +17,7 @@ val viewModelModule = module {
     viewModel {
         PlanProgressViewModel(get())
     }
+    viewModel {
+        ScheduleViewModel(get(), get())
+    }
 }

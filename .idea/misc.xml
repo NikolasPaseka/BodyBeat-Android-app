@@ -20,11 +20,12 @@
         <entry key="app/src/main/res/layout/fragment_plan_detail.xml" value="0.2776268115942029" />
         <entry key="app/src/main/res/layout/fragment_plan_progress.xml" value="0.35714980630768345" />
         <entry key="app/src/main/res/layout/fragment_plans.xml" value="0.2776268115942029" />
-        <entry key="app/src/main/res/layout/fragment_schedule.xml" value="0.16337386018237082" />
+        <entry key="app/src/main/res/layout/fragment_schedule.xml" value="0.32880354768237074" />
         <entry key="app/src/main/res/layout/row_exercise_list.xml" value="0.18161094224924013" />
         <entry key="app/src/main/res/layout/row_plan_list.xml" value="0.2032928466796875" />
         <entry key="app/src/main/res/layout/view_text_input.xml" value="0.3120471014492754" />
         <entry key="app/src/main/res/layout/view_timer_picker.xml" value="0.38357191926440215" />
+        <entry key="app/src/main/res/layout/view_week_day_picker.xml" value="0.3120471014492754" />
         <entry key="app/src/main/res/menu/menu_bottom.xml" value="0.2388888888888889" />
         <entry key="app/src/main/res/menu/menu_main.xml" value="0.2388888888888889" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_logo.xml" value="0.105" />

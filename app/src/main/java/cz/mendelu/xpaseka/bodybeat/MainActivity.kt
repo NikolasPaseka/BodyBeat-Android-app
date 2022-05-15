@@ -31,6 +31,7 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(binding.toolbar)
 
         val navController = findNavController(R.id.nav_host_fragment_content_main)
+        //appBarConfiguration = AppBarConfiguration(navController.graph)
 
         appBarConfiguration = AppBarConfiguration(
             setOf(
@@ -38,10 +39,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.ScheduleFragment
             )
         )
-        setupActionBarWithNavController(navController!!, appBarConfiguration!!)
-
-//        appBarConfiguration = AppBarConfiguration(navController.graph)
-//        setupActionBarWithNavController(navController, appBarConfiguration)
+        setupActionBarWithNavController(navController, appBarConfiguration)
 
         navController.addOnDestinationChangedListener { controller, destination, arguments ->
             manageMainScreen(destination.id)
