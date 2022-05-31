@@ -12,8 +12,10 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import cz.mendelu.xpaseka.bodybeat.architecture.BaseFragment
 import cz.mendelu.xpaseka.bodybeat.databinding.FragmentParksBinding
+import cz.mendelu.xpaseka.bodybeat.databinding.RowParkListBinding
 import cz.mendelu.xpaseka.bodybeat.databinding.RowPlanListBinding
 import cz.mendelu.xpaseka.bodybeat.model.Park
 import cz.mendelu.xpaseka.bodybeat.model.Plan
@@ -64,26 +66,27 @@ class ParksFragment : BaseFragment<FragmentParksBinding, ParksViewModel>(ParksVi
 
     inner class ParksAdapter : RecyclerView.Adapter<ParksAdapter.ParkViewHolder>() {
 
-        inner class ParkViewHolder(val binding: RowPlanListBinding) : RecyclerView.ViewHolder(binding.root)
+        inner class ParkViewHolder(val binding: RowParkListBinding) : RecyclerView.ViewHolder(binding.root)
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ParkViewHolder {
             return ParkViewHolder(
-                RowPlanListBinding
+                RowParkListBinding
                     .inflate(LayoutInflater
                         .from(parent.context), parent, false))
         }
 
         override fun onBindViewHolder(holder: ParkViewHolder, position: Int) {
             val park = viewModel.parks.get(position)
-            holder.binding.rowPlanTitle.text = park.name
+            holder.binding.parkName.text = park.name
+            Glide.with(holder.binding.root).load(park.image).into(holder.binding.parkImage)
 
             // nastaveni sudy radku na jinou barvu, musi se resit recyklace - vyresit elsem
-            if (position % 2 == 0) {
-                //holder.binding.root.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.green_lighter))
-                holder.binding.rowPlanTitleCard.setCardBackgroundColor(ContextCompat.getColor(requireContext(), R.color.green_lighter))
-            } else {
-                holder.binding.rowPlanTitleCard.setCardBackgroundColor(ContextCompat.getColor(requireContext(), R.color.green_darker))
-            }
+//            if (position % 2 == 0) {
+//                //holder.binding.root.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.green_lighter))
+//                holder.binding.rowPlanTitleCard.setCardBackgroundColor(ContextCompat.getColor(requireContext(), R.color.green_lighter))
+//            } else {
+//                holder.binding.rowPlanTitleCard.setCardBackgroundColor(ContextCompat.getColor(requireContext(), R.color.green_darker))
+//            }
 
 //            holder.binding.root.setOnClickListener {
 //                val id: Long = plan.id!!
