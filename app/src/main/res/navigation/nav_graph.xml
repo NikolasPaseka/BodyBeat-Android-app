@@ -95,5 +95,55 @@
         android:name="cz.mendelu.xpaseka.bodybeat.ParksFragment"
         android:label="@string/workout_parks"
         tools:layout="@layout/fragment_parks">
+
+        <action
+            android:id="@+id/action_ParksFragment_To_ParkDetailFragment"
+            app:destination="@+id/ParkDetailFragment"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/ParkDetailFragment"
+        android:name="cz.mendelu.xpaseka.bodybeat.ParkDetailFragment"
+        android:label="@string/workout_park_detail"
+        tools:layout="@layout/fragment_park_detail">
+
+        <action
+            android:id="@+id/action_ParkDetailFragment_to_ParkMapFragment"
+            app:destination="@+id/ParkMapFragment"/>
+
+        <argument
+            android:name="name"
+            app:argType="string"
+            android:defaultValue=""/>
+        <argument
+            android:name="image"
+            app:argType="string"
+            android:defaultValue=""/>
+        <argument
+            android:name="latitude"
+            app:argType="float"
+            android:defaultValue="0"/>
+        <argument
+            android:name="longitude"
+            app:argType="float"
+            android:defaultValue="0"/>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/ParkMapFragment"
+        android:name="cz.mendelu.xpaseka.bodybeat.ParkMapFragment"
+        android:label="@string/workout_park_location"
+        tools:layout="@layout/fragment_park_map">
+
+        <argument
+            android:name="latitude"
+            app:argType="float"
+            android:defaultValue="0"/>
+        <argument
+            android:name="longitude"
+            app:argType="float"
+            android:defaultValue="0"/>
+
     </fragment>
 </navigation>

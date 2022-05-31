@@ -31,11 +31,6 @@ class ParksFragment : BaseFragment<FragmentParksBinding, ParksViewModel>(ParksVi
         get() = FragmentParksBinding::inflate
 
     override fun initViews() {
-//        val recyclerView = binding.parksList
-//        layoutManager = LinearLayoutManager(requireContext())
-//        adapter = ParksAdapter()
-//        recyclerView.layoutManager = layoutManager
-//        recyclerView.adapter = adapter
         getAllData()
     }
 
@@ -43,7 +38,6 @@ class ParksFragment : BaseFragment<FragmentParksBinding, ParksViewModel>(ParksVi
         viewModel.retrofitService.getAllData().enqueue(object: retrofit2.Callback<List<Park>> {
             override fun onResponse(call: Call<List<Park>>, response: Response<List<Park>>) {
                 if (response.isSuccessful) {
-                    Log.i("parky", response.body().toString())
                     viewModel.parks = response.body() as MutableList<Park>
                     val recyclerView = binding.parksList
                     layoutManager = LinearLayoutManager(requireContext())
@@ -56,7 +50,6 @@ class ParksFragment : BaseFragment<FragmentParksBinding, ParksViewModel>(ParksVi
             override fun onFailure(call: Call<List<Park>>, t: Throwable) {
                 t.printStackTrace()
             }
-
         })
     }
 
@@ -80,22 +73,14 @@ class ParksFragment : BaseFragment<FragmentParksBinding, ParksViewModel>(ParksVi
             holder.binding.parkName.text = park.name
             Glide.with(holder.binding.root).load(park.image).into(holder.binding.parkImage)
 
-            // nastaveni sudy radku na jinou barvu, musi se resit recyklace - vyresit elsem
-//            if (position % 2 == 0) {
-//                //holder.binding.root.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.green_lighter))
-//                holder.binding.rowPlanTitleCard.setCardBackgroundColor(ContextCompat.getColor(requireContext(), R.color.green_lighter))
-//            } else {
-//                holder.binding.rowPlanTitleCard.setCardBackgroundColor(ContextCompat.getColor(requireContext(), R.color.green_darker))
-//            }
-
-//            holder.binding.root.setOnClickListener {
-//                val id: Long = plan.id!!
-//                val directions = PlansFragmentDirections.actionPlansFragmentToPlanDetailFragment()
-//                directions.id = id
-//                findNavController().navigate(directions)
-//            }
-            // textcolor
-            // holder.binding.personName.setTextColor(textColor)
+            holder.binding.root.setOnClickListener {
+                val directions = ParksFragmentDirections.actionParksFragmentToParkDetailFragment()
+                directions.name = park.name
+                directions.image = park.image
+                directions.latitude = park.latitude.toFloat()
+                directions.longitude = park.longitude.toFloat()
+                findNavController().navigate(directions)
+            }
         }
 
         override fun getItemCount(): Int = viewModel.parks.size

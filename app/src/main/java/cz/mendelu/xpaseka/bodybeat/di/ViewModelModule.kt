@@ -23,4 +23,10 @@ val viewModelModule = module {
     viewModel {
         ParksViewModel()
     }
+    viewModel {
+        ParkDetailViewModel()
+    }
+    viewModel {
+        ParkMapViewModel()
+    }
 }
