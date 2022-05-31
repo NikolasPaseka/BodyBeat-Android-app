@@ -20,4 +20,7 @@ val viewModelModule = module {
     viewModel {
         ScheduleViewModel(get(), get())
     }
+    viewModel {
+        ParksViewModel()
+    }
 }

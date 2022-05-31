@@ -85,7 +85,15 @@
     <fragment
         android:id="@+id/ScheduleFragment"
         android:name="cz.mendelu.xpaseka.bodybeat.ScheduleFragment"
-        android:label="@string/first_fragment_label"
+        android:label="@string/my_schedule"
         tools:layout="@layout/fragment_schedule">
+    </fragment>
+
+    <!-- Parks -->
+    <fragment
+        android:id="@+id/ParksFragment"
+        android:name="cz.mendelu.xpaseka.bodybeat.ParksFragment"
+        android:label="@string/workout_parks"
+        tools:layout="@layout/fragment_parks">
     </fragment>
 </navigation>

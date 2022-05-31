@@ -36,7 +36,8 @@ class MainActivity : AppCompatActivity() {
         appBarConfiguration = AppBarConfiguration(
             setOf(
                 R.id.PlansFragment,
-                R.id.ScheduleFragment
+                R.id.ScheduleFragment,
+                R.id.ParksFragment
             )
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
@@ -65,6 +66,7 @@ class MainActivity : AppCompatActivity() {
             when(item.itemId) {
                 R.id.ic_plans -> replaceFragment(R.id.PlansFragment)
                 R.id.ic_schedule -> replaceFragment(R.id.ScheduleFragment)
+                R.id.ic_parks -> replaceFragment(R.id.ParksFragment)
             }
             true
         }

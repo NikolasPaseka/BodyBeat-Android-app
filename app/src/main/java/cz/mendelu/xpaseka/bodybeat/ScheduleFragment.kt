@@ -72,6 +72,7 @@ class ScheduleFragment : BaseFragment<FragmentScheduleBinding, ScheduleViewModel
 
         override fun onBindViewHolder(holder: ScheduleViewHolder, position: Int) {
             val schedule = viewModel.schedule.get(position)
+            // TODO osetrit
             val plan = viewModel.plans.get(position)
 
             val time = Date(schedule.time * 1000)
