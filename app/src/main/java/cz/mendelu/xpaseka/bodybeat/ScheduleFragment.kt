@@ -52,10 +52,9 @@ class ScheduleFragment : BaseFragment<FragmentScheduleBinding, ScheduleViewModel
 
     private fun loadDaySchedule(day: String) {
         lifecycleScope.launch {
-            viewModel.schedule = (viewModel.getScheduleByDay(day))
-            viewModel.loadPlansBySchedule()
+            viewModel.getSchedulesByDay(day)
         }.invokeOnCompletion {
-            adapter.notifyListChange(0, viewModel.schedule.size+1)
+            adapter.notifyListChange(0, viewModel.planSchedules.size+1)
         }
     }
 
@@ -71,22 +70,14 @@ class ScheduleFragment : BaseFragment<FragmentScheduleBinding, ScheduleViewModel
         }
 
         override fun onBindViewHolder(holder: ScheduleViewHolder, position: Int) {
-            val schedule = viewModel.schedule.get(position)
-            // TODO osetrit
-            val plan = viewModel.plans.get(position)
+            if (position < viewModel.planSchedules.size) {
+                val planSchedule = viewModel.planSchedules.get(position)
 
-            val time = Date(schedule.time * 1000)
-            val dateFormatter = SimpleDateFormat("HH:mm", Locale.US)
-            holder.binding.rowPlanTitle.text = "${plan.title} ${dateFormatter.format(time)}"
-
-//            holder.binding.root.setOnClickListener {
-//                val id: Long = schedule.id!!
-//                val directions = PlansFragmentDirections.actionPlansFragmentToPlanDetailFragment()
-//                directions.id = id
-//                findNavController().navigate(directions)
-//            }
-            // textcolor
-            // holder.binding.personName.setTextColor(textColor)
+                val time = Date(planSchedule.time * 1000)
+                val dateFormatter = SimpleDateFormat("HH:mm", Locale.US)
+                holder.binding.rowPlanTitle.text =
+                    "${planSchedule.title} ${dateFormatter.format(time)}"
+            }
         }
 
         override fun getItemCount(): Int = viewModel.schedule.size

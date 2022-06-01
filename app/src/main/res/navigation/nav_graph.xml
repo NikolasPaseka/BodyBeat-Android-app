@@ -99,6 +99,10 @@
         <action
             android:id="@+id/action_ParksFragment_To_ParkDetailFragment"
             app:destination="@+id/ParkDetailFragment"/>
+
+        <action
+            android:id="@+id/action_ParksFragment_To_UploadParkFragment"
+            app:destination="@+id/UploadParkFragment"/>
     </fragment>
 
     <fragment
@@ -145,5 +149,12 @@
             app:argType="float"
             android:defaultValue="0"/>
 
+    </fragment>
+
+    <fragment
+        android:id="@+id/UploadParkFragment"
+        android:name="cz.mendelu.xpaseka.bodybeat.UploadParkFragment"
+        android:label="@string/upload_workout_park"
+        tools:layout="@layout/fragment_upload_park">
     </fragment>
 </navigation>

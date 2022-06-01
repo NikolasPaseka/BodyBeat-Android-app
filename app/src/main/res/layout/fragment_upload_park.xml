@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".UploadParkFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <cz.mendelu.xpaseka.bodybeat.view.TextInputView
+            android:id="@+id/parkName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:hint="@string/park_name"/>
+
+        <ImageView
+            android:id="@+id/parkImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_launcher_background"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/postDataButton"
+            android:layout_width="wrap_content"
+            style="@style/ConfirmButton"
+            android:text="@string/upload_park"/>
+
+    </LinearLayout>
+
+</FrameLayout>

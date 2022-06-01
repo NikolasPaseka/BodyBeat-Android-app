@@ -10,17 +10,17 @@ class ScheduleViewModel(
     private val scheduleRepository: IScheduleLocalRepository,
     private val plansRepository: IPlansLocalRepository) : ViewModel() {
 
+    data class PlanSchedule(var title: String, var time: Long)
+
+    var planSchedules: MutableList<PlanSchedule> = mutableListOf()
+
     var schedule: MutableList<Schedule> = mutableListOf()
-    val plans: MutableList<Plan> = mutableListOf()
 
-    suspend fun getScheduleByDay(day: String): MutableList<Schedule> {
-        return scheduleRepository.getByDay(day)
-    }
-
-    suspend fun loadPlansBySchedule() {
-        plans.clear()
+    suspend fun getSchedulesByDay(day: String) {
+        this.schedule = scheduleRepository.getByDay(day)
         schedule.forEach { s ->
-            plans.add(plansRepository.findById(s.planId!!))
+            val plan = plansRepository.findById(s.planId!!)
+            planSchedules.add(PlanSchedule(plan.title, s.time))
         }
     }
 }

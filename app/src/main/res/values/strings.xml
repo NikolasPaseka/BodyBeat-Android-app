@@ -23,4 +23,7 @@
     <string name="show_location">Show location</string>
     <string name="workout_park_detail">Workout park detail</string>
     <string name="workout_park_location">Workout park location</string>
+    <string name="upload_workout_park">Upload workout park</string>
+    <string name="upload_park">Upload park</string>
+    <string name="park_name">Park Name</string>
 </resources>

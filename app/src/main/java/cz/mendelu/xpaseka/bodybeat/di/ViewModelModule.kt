@@ -29,4 +29,7 @@ val viewModelModule = module {
     viewModel {
         ParkMapViewModel()
     }
+    viewModel {
+        UploadParkViewModel()
+    }
 }

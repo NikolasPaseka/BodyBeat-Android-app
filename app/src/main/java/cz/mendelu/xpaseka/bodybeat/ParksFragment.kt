@@ -31,6 +31,11 @@ class ParksFragment : BaseFragment<FragmentParksBinding, ParksViewModel>(ParksVi
         get() = FragmentParksBinding::inflate
 
     override fun initViews() {
+        binding.fab.setOnClickListener {
+            val directions = ParksFragmentDirections.actionParksFragmentToUploadParkFragment()
+            findNavController().navigate(directions)
+        }
+
         getAllData()
     }
 
