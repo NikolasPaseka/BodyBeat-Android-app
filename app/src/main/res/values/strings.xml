@@ -35,6 +35,7 @@
 
     <string name="cancel_dialog_title">Cancel creating new plan</string>
     <string name="cancel_dialog_sentence">Are you sure you want to cancel? All changes will be lost.</string>
+    <string name="monthly_completion">Monthly completion</string>
 
     <string-array name="days_array">
         <item>Monday</item>

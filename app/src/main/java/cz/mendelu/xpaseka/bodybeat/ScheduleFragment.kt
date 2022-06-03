@@ -29,6 +29,8 @@ class ScheduleFragment : BaseFragment<FragmentScheduleBinding, ScheduleViewModel
     private lateinit var layoutManager: LinearLayoutManager
     private lateinit var adapter: ScheduleAdapter
 
+    private lateinit var calendarSelection: Calendar
+
     override val bindingInflater: (LayoutInflater) -> FragmentScheduleBinding
         get() = FragmentScheduleBinding::inflate
 
@@ -43,7 +45,22 @@ class ScheduleFragment : BaseFragment<FragmentScheduleBinding, ScheduleViewModel
         loadDaySchedule("monday")
         binding.mondayPicker.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.orange))
 
+        calendarSelection = Calendar.getInstance()
         calculateMonthlyProgression()
+
+        binding.nextMonthButton.setOnClickListener {
+            calendarSelection.add(Calendar.MONTH, 1)
+            calculateMonthlyProgression()
+        }
+        binding.previousMonthButton.setOnClickListener {
+            calendarSelection.add(Calendar.MONTH, -1)
+            calculateMonthlyProgression()
+        }
+    }
+
+    private fun setSelectedCalendarText() {
+        binding.selectedMonth.text = calendarSelection.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.getDefault())
+        binding.selectedYear.text = calendarSelection.get(Calendar.YEAR).toString()
     }
 
     override fun onActivityCreated() {
@@ -77,7 +94,7 @@ class ScheduleFragment : BaseFragment<FragmentScheduleBinding, ScheduleViewModel
             Calendar.SUNDAY to 0
         )
 
-        val calendar = Calendar.getInstance()
+        val calendar = calendarSelection
         val currentMonth = calendar.get(Calendar.MONTH)
         for (day: Int in 1..calendar.getActualMaximum(Calendar.DAY_OF_MONTH)) {
             calendar.set(calendar.get(Calendar.YEAR), currentMonth, day)
@@ -95,12 +112,18 @@ class ScheduleFragment : BaseFragment<FragmentScheduleBinding, ScheduleViewModel
                 numberOfWorkoutsInMonth += daysInMonth[day]!!
             }
 
-            var scheduleLog: MutableList<ScheduleLog> = mutableListOf()
+            var scheduleLog: MutableList<ScheduleLog>
             lifecycleScope.launch {
                 scheduleLog = viewModel.getSchedulesLog()
+                val cal = Calendar.getInstance()
+                val filteredLog = scheduleLog.filter { schedule ->
+                    cal.timeInMillis = schedule.date
+                    cal.get(Calendar.YEAR) == calendarSelection.get(Calendar.YEAR)
+                            && cal.get(Calendar.MONTH) == calendarSelection.get(Calendar.MONTH)
+                }
                 var completion: Float = 0f
                 if (numberOfWorkoutsInMonth != 0) {
-                    completion = scheduleLog.size.toFloat() / numberOfWorkoutsInMonth
+                    completion = filteredLog.size.toFloat() / numberOfWorkoutsInMonth
                 }
                 if (completion > 1.0f) {
                     completion = 1.0f
@@ -115,6 +138,8 @@ class ScheduleFragment : BaseFragment<FragmentScheduleBinding, ScheduleViewModel
 
                     progressBarWidth = 7f
                 }
+
+                setSelectedCalendarText()
             }
         }
     }
