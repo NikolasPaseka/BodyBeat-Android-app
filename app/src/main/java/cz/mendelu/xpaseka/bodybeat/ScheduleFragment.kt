@@ -73,7 +73,7 @@ class ScheduleFragment : BaseFragment<FragmentScheduleBinding, ScheduleViewModel
             if (position < viewModel.planSchedules.size) {
                 val planSchedule = viewModel.planSchedules.get(position)
 
-                val time = Date(planSchedule.time * 1000)
+                val time = Date(planSchedule.time)
                 val dateFormatter = SimpleDateFormat("HH:mm", Locale.US)
                 holder.binding.rowPlanTitle.text =
                     "${planSchedule.title} ${dateFormatter.format(time)}"

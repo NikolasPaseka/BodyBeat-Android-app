@@ -17,7 +17,9 @@ class ScheduleViewModel(
     var schedule: MutableList<Schedule> = mutableListOf()
 
     suspend fun getSchedulesByDay(day: String) {
-        this.schedule = scheduleRepository.getByDay(day)
+        schedule.clear()
+        planSchedules.clear()
+        schedule = scheduleRepository.getByDay(day)
         schedule.forEach { s ->
             val plan = plansRepository.findById(s.planId!!)
             planSchedules.add(PlanSchedule(plan.title, s.time))

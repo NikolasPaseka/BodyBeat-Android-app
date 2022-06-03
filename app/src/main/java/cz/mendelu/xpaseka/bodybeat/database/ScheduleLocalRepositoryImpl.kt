@@ -8,7 +8,7 @@ class ScheduleLocalRepositoryImpl(private val scheduleDao: ScheduleDao) : ISched
         return scheduleDao.getAll()
     }
 
-    override suspend fun getByPlanId(id: Long): Schedule {
+    override fun getByPlanId(id: Long): LiveData<MutableList<Schedule>> {
         return scheduleDao.getByPlanId(id)
     }
 

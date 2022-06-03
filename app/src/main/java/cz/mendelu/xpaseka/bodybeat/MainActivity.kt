@@ -1,5 +1,6 @@
 package cz.mendelu.xpaseka.bodybeat
 
+import android.graphics.PorterDuff
 import android.os.Bundle
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
@@ -12,6 +13,8 @@ import android.view.MenuItem
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.content.ContextCompat
+import androidx.core.graphics.drawable.DrawableCompat
 import androidx.fragment.app.Fragment
 import cz.mendelu.xpaseka.bodybeat.databinding.ActivityMainBinding
 
@@ -46,6 +49,8 @@ class MainActivity : AppCompatActivity() {
             manageMainScreen(destination.id)
         }
 
+        DrawableCompat.setTint(binding.bottomNav.menu.getItem(0).icon, ContextCompat.getColor(this, android.R.color.holo_blue_light))
+
         setBottomNavListeners()
     }
 
@@ -68,6 +73,8 @@ class MainActivity : AppCompatActivity() {
                 R.id.ic_schedule -> replaceFragment(R.id.ScheduleFragment)
                 R.id.ic_parks -> replaceFragment(R.id.ParksFragment)
             }
+            item.icon.setColorFilter(resources.getColor(R.color.orange), PorterDuff.Mode.MULTIPLY)
+            DrawableCompat.setTint(item.icon, ContextCompat.getColor(this, android.R.color.holo_blue_light))
             true
         }
     }

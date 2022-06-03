@@ -13,7 +13,7 @@ interface ScheduleDao {
     fun getAll(): LiveData<MutableList<Schedule>>
 
     @Query("SELECT * FROM schedule WHERE plan_id = :id")
-    suspend fun getByPlanId(id: Long): Schedule
+    fun getByPlanId(id: Long): LiveData<MutableList<Schedule>>
 
     @Query("SELECT * FROM schedule WHERE day = :day")
     suspend fun getByDay(day: String): MutableList<Schedule>

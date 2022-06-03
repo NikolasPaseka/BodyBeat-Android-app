@@ -9,13 +9,19 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
-        app:errorEnabled="true">
+        app:errorEnabled="true"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        app:boxCornerRadiusBottomEnd="20dp"
+        app:boxCornerRadiusTopEnd="20dp"
+        app:boxCornerRadiusBottomStart="20dp"
+        app:boxCornerRadiusTopStart="20dp"
+        android:layout_margin="16dp">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/textInputEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:maxLength="250"
+            android:maxLength="50"
             android:maxLines="1"
             android:inputType="text"/>
 

@@ -3,27 +3,33 @@ package cz.mendelu.xpaseka.bodybeat
 import android.app.AlertDialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
-import android.nfc.Tag
 import android.os.Bundle
 import android.util.Log
 import android.view.*
-import android.widget.Toast
-import androidx.activity.OnBackPressedCallback
+import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.viewModelScope
 import androidx.navigation.fragment.findNavController
-import cz.mendelu.xpaseka.bodybeat.architecture.BaseFragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import cz.mendelu.xpaseka.bodybeat.databinding.DialogAddScheduleBinding
 import cz.mendelu.xpaseka.bodybeat.databinding.DialogTimerBinding
 import cz.mendelu.xpaseka.bodybeat.databinding.FragmentNewPlanBinding
+import cz.mendelu.xpaseka.bodybeat.databinding.RowPlanListBinding
 import cz.mendelu.xpaseka.bodybeat.model.Plan
+import cz.mendelu.xpaseka.bodybeat.model.Schedule
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import java.text.SimpleDateFormat
+import java.util.*
 
 class NewPlanFragment : Fragment() {
 
     private lateinit var binding: FragmentNewPlanBinding
     private val vm by sharedViewModel<NewPlanViewModel>()
+
+    private lateinit var layoutManager: LinearLayoutManager
+    private lateinit var adapter: ScheduleAdapter
 
     enum class TimerDialogType {
         EXERCISE, SERIES
@@ -37,6 +43,11 @@ class NewPlanFragment : Fragment() {
         setHasOptionsMenu(true)
         binding = FragmentNewPlanBinding.inflate(inflater, container, false)
 
+        layoutManager = LinearLayoutManager(requireContext())
+        adapter = ScheduleAdapter()
+        binding.scheduleList.layoutManager = layoutManager
+        binding.scheduleList.adapter = adapter
+
         binding.exerciseTimerButton.setOnClickListener {
             setUpTimerDialog(TimerDialogType.EXERCISE)
         }
@@ -48,6 +59,10 @@ class NewPlanFragment : Fragment() {
             findNavController().navigate(NewPlanFragmentDirections.actionNewPlanFragmentToManageExercisesFragment())
         }
 
+        binding.addSchedule.setOnClickListener {
+            setUpAddScheduleDialog()
+        }
+
         binding.fabSavePlan.setOnClickListener {
             vm.plan.title = binding.workoutPlanTitle.text
 
@@ -57,7 +72,12 @@ class NewPlanFragment : Fragment() {
                     e.planId = vm.planId
                     vm.insertExercise(e)
                 }
+                vm.schedules.forEach { s ->
+                    s.planId = vm.planId
+                    vm.insertSchedule(s)
+                }
             }.invokeOnCompletion {
+                clearViewModel()
                 findNavController().popBackStack()
             }
         }
@@ -103,12 +123,50 @@ class NewPlanFragment : Fragment() {
     }
 
     private fun getTimerText(value: Int): String {
-        var seconds: String = if (value % 60 < 10) {
+        val seconds: String = if (value % 60 < 10) {
             "0${value % 60}"
         } else {
             "${value % 60}"
         }
         return "${value / 60}:${seconds}"
+    }
+
+    private fun setUpAddScheduleDialog() {
+        val dialogBinding = DialogAddScheduleBinding.inflate(LayoutInflater.from(requireContext()))
+        val dialogBuilder = AlertDialog.Builder(requireContext())
+            .setView(dialogBinding.root)
+            .setCancelable(true)
+        val timerDialog = dialogBuilder.show()
+        timerDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+        val spinner = dialogBinding.dayPicker
+        ArrayAdapter.createFromResource(
+            requireContext(),
+            R.array.days_array,
+            android.R.layout.simple_spinner_item
+        ).also { adapter ->
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            spinner.adapter = adapter
+        }
+        dialogBinding.timePicker.setIs24HourView(true)
+
+        dialogBinding.saveButton.setOnClickListener {
+
+            val calendar = Calendar.getInstance()
+            calendar[Calendar.HOUR_OF_DAY] = dialogBinding.timePicker.hour
+            calendar[Calendar.MINUTE] = dialogBinding.timePicker.minute
+
+            val timestamp: Long = calendar.timeInMillis
+            val day: String = spinner.selectedItem.toString().lowercase()
+            vm.schedules.add(Schedule(day, timestamp))
+
+            adapter.notifyListChange(0, vm.schedules.size+1)
+            timerDialog.dismiss()
+        }
+
+        dialogBinding.closeButton.setOnClickListener {
+            timerDialog.dismiss()
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -130,8 +188,36 @@ class NewPlanFragment : Fragment() {
         vm.plan = Plan("", 0, 0)
         vm.planId = null
         vm.exercises.clear()
+        vm.schedules.clear()
         if (vm.exerciseList.value != null) {
             vm.exerciseList.value!!.clear()
+        }
+    }
+
+    inner class ScheduleAdapter : RecyclerView.Adapter<ScheduleAdapter.ScheduleViewHolder>() {
+
+        inner class ScheduleViewHolder(val binding: RowPlanListBinding) : RecyclerView.ViewHolder(binding.root)
+
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ScheduleViewHolder {
+            return ScheduleViewHolder(
+                RowPlanListBinding
+                    .inflate(LayoutInflater
+                        .from(parent.context), parent, false))
+        }
+
+        override fun onBindViewHolder(holder: ScheduleViewHolder, position: Int) {
+            if (position < vm.schedules.size) {
+                val schedule = vm.schedules.get(position)
+                val time = Date(schedule.time)
+                val dateFormatter = SimpleDateFormat("HH:mm", Locale.getDefault())
+                holder.binding.rowPlanTitle.text = "${schedule.day} ${dateFormatter.format(time)}"
+            }
+        }
+
+        override fun getItemCount(): Int = vm.schedules.size
+
+        fun notifyListChange(start: Int, end: Int) {
+            notifyItemRangeChanged(start, end)
         }
     }
 }

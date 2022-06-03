@@ -26,4 +26,16 @@
     <string name="upload_workout_park">Upload workout park</string>
     <string name="upload_park">Upload park</string>
     <string name="park_name">Park Name</string>
+    <string name="manage_exercises">Manage exercises</string>
+    <string name="add_to_schedule">Add to schedule</string>
+
+    <string-array name="days_array">
+        <item>Monday</item>
+        <item>Tuesday</item>
+        <item>Wednesday</item>
+        <item>Thursday</item>
+        <item>Friday</item>
+        <item>Saturday</item>
+        <item>Sunday</item>
+    </string-array>
 </resources>

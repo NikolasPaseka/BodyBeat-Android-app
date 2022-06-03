@@ -39,9 +39,9 @@
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:menu="@menu/menu_bottom"
-        android:background="@color/green_darker"
-        app:itemIconTint="@color/white"
-        app:itemTextColor="@color/white"/>
+        android:background="@color/grey_background"
+        app:itemIconTint="@drawable/bottom_navigation_colored"
+        app:itemTextColor="@drawable/bottom_navigation_colored"/>
 
 
 <!--    <FrameLayout-->
