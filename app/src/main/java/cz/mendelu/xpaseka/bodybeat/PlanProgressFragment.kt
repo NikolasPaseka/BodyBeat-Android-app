@@ -77,6 +77,9 @@ class PlanProgressFragment : BaseFragment<FragmentPlanProgressBinding, PlanProgr
                     setUpCountdownDialog(viewModel.plan.timerSeries)
                 } else {
                     binding.currentExerciseTitle.text = "All done congrats"
+                    lifecycleScope.launch {
+                        viewModel.logFinishedWorkout()
+                    }
                 }
             }
         }
@@ -105,10 +108,8 @@ class PlanProgressFragment : BaseFragment<FragmentPlanProgressBinding, PlanProgr
 
         val circularProgressBar = countdownDialogBinding.circularProgressBar
         circularProgressBar.apply {
-            // Set Progress Max
             progressMax = timer.toFloat()
             progress = 0f
-            // or with animation
             setProgressWithAnimation(progress, 1000) // =1s
 
             progressBarWidth = 7f

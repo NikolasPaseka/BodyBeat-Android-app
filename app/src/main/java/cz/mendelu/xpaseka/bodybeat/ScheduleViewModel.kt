@@ -1,14 +1,19 @@
 package cz.mendelu.xpaseka.bodybeat
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import cz.mendelu.xpaseka.bodybeat.database.IPlansLocalRepository
 import cz.mendelu.xpaseka.bodybeat.database.IScheduleLocalRepository
+import cz.mendelu.xpaseka.bodybeat.database.IScheduleLogLocalRepository
 import cz.mendelu.xpaseka.bodybeat.model.Plan
 import cz.mendelu.xpaseka.bodybeat.model.Schedule
+import cz.mendelu.xpaseka.bodybeat.model.ScheduleLog
 
 class ScheduleViewModel(
     private val scheduleRepository: IScheduleLocalRepository,
-    private val plansRepository: IPlansLocalRepository) : ViewModel() {
+    private val plansRepository: IPlansLocalRepository,
+    private val scheduleLogRepository: IScheduleLogLocalRepository
+    ) : ViewModel() {
 
     data class PlanSchedule(var title: String, var time: Long)
 
@@ -24,5 +29,13 @@ class ScheduleViewModel(
             val plan = plansRepository.findById(s.planId!!)
             planSchedules.add(PlanSchedule(plan.title, s.time))
         }
+    }
+
+    suspend fun getSchedules(): MutableList<Schedule> {
+        return scheduleRepository.getArr()
+    }
+
+    suspend fun getSchedulesLog(): MutableList<ScheduleLog> {
+        return scheduleLogRepository.getAll()
     }
 }

@@ -15,10 +15,10 @@ val viewModelModule = module {
         PlanDetailViewModel(get())
     }
     viewModel {
-        PlanProgressViewModel(get())
+        PlanProgressViewModel(get(), get())
     }
     viewModel {
-        ScheduleViewModel(get(), get())
+        ScheduleViewModel(get(), get(), get())
     }
     viewModel {
         ParksViewModel()

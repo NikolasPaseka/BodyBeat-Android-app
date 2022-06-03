@@ -1,7 +1,6 @@
 package cz.mendelu.xpaseka.bodybeat
 
-import android.view.LayoutInflater
-import android.view.ViewGroup
+import android.view.*
 import android.widget.TextView
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -32,6 +31,7 @@ class PlanDetailFragment : BaseFragment<FragmentPlanDetailBinding, PlanDetailVie
         }.invokeOnCompletion {
             fillLayout()
         }
+        setHasOptionsMenu(true)
     }
 
     private fun fillLayout() {
@@ -57,6 +57,31 @@ class PlanDetailFragment : BaseFragment<FragmentPlanDetailBinding, PlanDetailVie
             val directions = PlanDetailFragmentDirections.actionPlanDetailFragmentToPlanProgressFragment()
             directions.id = arguments.id
             findNavController().navigate(directions)
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        requireActivity().menuInflater.inflate(R.menu.menu_plan_detail, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when(item.itemId) {
+            R.id.editPlan -> {
+                val directions = PlanDetailFragmentDirections.actionPlanDetailFragmentToNewPlanFragment()
+                directions.id = viewModel.plan.id!!
+                findNavController().navigate(directions)
+                return true
+            }
+            R.id.deletePlan -> {
+                lifecycleScope.launch {
+                    viewModel.deletePlan()
+                }.invokeOnCompletion {
+                    finishCurrentFragment()
+                }
+                return true
+            }
+            else -> super.onOptionsItemSelected(item)
         }
     }
 

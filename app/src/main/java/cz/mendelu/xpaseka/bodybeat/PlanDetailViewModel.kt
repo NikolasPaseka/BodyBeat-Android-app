@@ -20,4 +20,7 @@ class PlanDetailViewModel(private val repository: IPlansLocalRepository) : ViewM
         return repository.getExercisesFromPlan(id)
     }
 
+    suspend fun deletePlan() {
+        repository.delete(plan)
+    }
 }

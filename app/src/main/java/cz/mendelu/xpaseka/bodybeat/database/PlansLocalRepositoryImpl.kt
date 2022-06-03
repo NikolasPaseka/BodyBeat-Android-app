@@ -25,6 +25,10 @@ class PlansLocalRepositoryImpl(private val plansDao: PlansDao) : IPlansLocalRepo
         return plansDao.getExercisesFromPlan(id)
     }
 
+    override suspend fun getExercisesTesting(id: Long): MutableList<Exercise> {
+        return plansDao.getExercisesTesting(id)
+    }
+
     override suspend fun update(plan: Plan) {
         plansDao.update(plan)
     }

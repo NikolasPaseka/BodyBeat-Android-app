@@ -10,6 +10,7 @@ import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import cz.mendelu.xpaseka.bodybeat.databinding.DialogAddScheduleBinding
@@ -27,6 +28,8 @@ class NewPlanFragment : Fragment() {
 
     private lateinit var binding: FragmentNewPlanBinding
     private val vm by sharedViewModel<NewPlanViewModel>()
+
+    private val arguments: PlanDetailFragmentArgs by navArgs()
 
     private lateinit var layoutManager: LinearLayoutManager
     private lateinit var adapter: ScheduleAdapter
@@ -64,27 +67,57 @@ class NewPlanFragment : Fragment() {
         }
 
         binding.fabSavePlan.setOnClickListener {
-            vm.plan.title = binding.workoutPlanTitle.text
+            savePlan()
+        }
 
-            lifecycleScope.launch {
+        fillLayout()
+
+        return binding.root
+    }
+
+    private fun savePlan() {
+        vm.plan.title = binding.workoutPlanTitle.text
+
+        lifecycleScope.launch {
+            if (arguments.id == -1L) {
                 vm.insertPlan()
-                vm.exercises.forEach { e ->
+            } else {
+                vm.updatePlan()
+            }
+            vm.exercises.forEach { e ->
+                if (e.id == null) {
                     e.planId = vm.planId
                     vm.insertExercise(e)
                 }
-                vm.schedules.forEach { s ->
+            }
+            vm.schedules.forEach { s ->
+                if (s.id == null) {
                     s.planId = vm.planId
                     vm.insertSchedule(s)
                 }
-            }.invokeOnCompletion {
-                clearViewModel()
-                findNavController().popBackStack()
             }
+        }.invokeOnCompletion {
+            clearViewModel()
+            findNavController().popBackStack()
         }
+    }
 
-        fillUpTimers()
-
-        return binding.root
+    private fun fillLayout() {
+        if (arguments.id != -1L) {
+            lifecycleScope.launch {
+                vm.getData(arguments.id)
+            }.invokeOnCompletion {
+                binding.workoutPlanTitle.text = vm.plan.title
+                Log.i("exe", vm.exercises.toString())
+                Log.i("sche", vm.schedules.toString())
+                if (vm.schedules.size > 0) {
+                    adapter.notifyListChange(0, vm.schedules.size+1)
+                }
+                fillUpTimers()
+            }
+        } else {
+            fillUpTimers()
+        }
     }
 
     private fun setUpTimerDialog(dialogType: TimerDialogType) {
@@ -177,11 +210,28 @@ class NewPlanFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             android.R.id.home -> {
-                clearViewModel()
-                findNavController().popBackStack()
+                setUpCancelDialog()
                 return true
             } else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    private fun setUpCancelDialog() {
+        val builder = AlertDialog.Builder(requireContext(), R.style.AlertDialogTheme)
+        builder.setTitle(R.string.cancel_dialog_title)
+        builder.setMessage(R.string.cancel_dialog_sentence)
+//builder.setPositiveButton("OK", DialogInterface.OnClickListener(function = x))
+
+        builder.setPositiveButton(android.R.string.yes) { dialog, which ->
+            clearViewModel()
+            findNavController().popBackStack()
+        }
+
+        builder.setNegativeButton(android.R.string.no) { dialog, which ->
+
+        }
+
+        builder.show()
     }
 
     private fun clearViewModel() {
@@ -189,9 +239,9 @@ class NewPlanFragment : Fragment() {
         vm.planId = null
         vm.exercises.clear()
         vm.schedules.clear()
-        if (vm.exerciseList.value != null) {
-            vm.exerciseList.value!!.clear()
-        }
+//        if (vm.exerciseList.value != null) {
+//            vm.exerciseList.value!!.clear()
+//        }
     }
 
     inner class ScheduleAdapter : RecyclerView.Adapter<ScheduleAdapter.ScheduleViewHolder>() {

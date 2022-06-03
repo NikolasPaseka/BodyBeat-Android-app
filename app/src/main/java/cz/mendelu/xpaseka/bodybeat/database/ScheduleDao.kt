@@ -13,10 +13,13 @@ interface ScheduleDao {
     fun getAll(): LiveData<MutableList<Schedule>>
 
     @Query("SELECT * FROM schedule WHERE plan_id = :id")
-    fun getByPlanId(id: Long): LiveData<MutableList<Schedule>>
+    suspend fun getByPlanId(id: Long): MutableList<Schedule>
 
     @Query("SELECT * FROM schedule WHERE day = :day")
     suspend fun getByDay(day: String): MutableList<Schedule>
+
+    @Query("SELECT * FROM schedule")
+    suspend fun getArr(): MutableList<Schedule>
 
     @Insert
     suspend fun insert(schedule: Schedule): Long

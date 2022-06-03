@@ -8,9 +8,15 @@
         android:id="@+id/dayText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/grey_background"
         app:layout_constraintTop_toTopOf="parent"
-        android:textAppearance="@style/ListText"
-        android:padding="8dp"/>
+        android:textSize="16sp"
+        android:textColor="@color/white"
+        android:padding="8dp"
+        android:backgroundTint="@color/grey_background"
+        android:gravity="center"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+<!--    -->
+<!--    android:background="@drawable/shape_circle"-->

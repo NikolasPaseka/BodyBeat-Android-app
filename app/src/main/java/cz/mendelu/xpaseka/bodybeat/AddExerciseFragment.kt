@@ -29,15 +29,16 @@ class AddExerciseFragment : Fragment() {
         binding.addExerciseButton.setOnClickListener {
             val exercise = Exercise(binding.exerciseTitle.text, binding.repeats.text.toInt(), binding.sets.text.toInt())
 
-            val list: MutableList<Exercise>
-            if (vm.exerciseList.value == null) {
-                list = mutableListOf()
-            } else {
-                list = vm.exerciseList.value!!
-            }
+//            val list: MutableList<Exercise>
+//            if (vm.exerciseList.value == null) {
+//                list = mutableListOf()
+//            } else {
+//                list = vm.exerciseList.value!!
+//            }
 
-            list.add(exercise)
-            vm.exerciseList.value = list
+            //list.add(exercise)
+            //vm.exerciseList.value = list
+            vm.exercises.add(exercise)
             findNavController().popBackStack()
         }
 

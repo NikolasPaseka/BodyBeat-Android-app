@@ -10,7 +10,11 @@ val repositoryModule = module {
     single {
         provideScheduleLocalRepository(get())
     }
+    single {
+        provideScheduleLogLocalRepository(get())
+    }
 }
 
 fun providePlansLocalRepository(plansDao: PlansDao): IPlansLocalRepository = PlansLocalRepositoryImpl(plansDao)
 fun provideScheduleLocalRepository(scheduleDao: ScheduleDao): IScheduleLocalRepository = ScheduleLocalRepositoryImpl(scheduleDao)
+fun provideScheduleLogLocalRepository(scheduleLogDao: ScheduleLogDao): IScheduleLogLocalRepository = ScheduleLogLocalRepositoryImpl(scheduleLogDao)

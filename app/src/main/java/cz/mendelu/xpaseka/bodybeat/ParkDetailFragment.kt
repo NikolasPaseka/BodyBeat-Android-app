@@ -38,6 +38,8 @@ class ParkDetailFragment : BaseFragment<FragmentParkDetailBinding, ParkDetailVie
         }
     }
 
+
+
     override fun onActivityCreated() {
     }
 }

@@ -28,6 +28,13 @@
     <string name="park_name">Park Name</string>
     <string name="manage_exercises">Manage exercises</string>
     <string name="add_to_schedule">Add to schedule</string>
+    <string name="edit_plan">Edit plan</string>
+    <string name="delete_plan">Delete plan</string>
+    <string name="exercise_timer">Exercise timer</string>
+    <string name="series_timer">Series timer</string>
+
+    <string name="cancel_dialog_title">Cancel creating new plan</string>
+    <string name="cancel_dialog_sentence">Are you sure you want to cancel? All changes will be lost.</string>
 
     <string-array name="days_array">
         <item>Monday</item>

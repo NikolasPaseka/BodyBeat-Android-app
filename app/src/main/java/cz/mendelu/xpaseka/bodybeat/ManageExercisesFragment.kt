@@ -37,15 +37,9 @@ class ManageExercisesFragment : Fragment() {
         recyclerView.layoutManager = layoutManager
         recyclerView.adapter = adapter
 
-        vm.exerciseList
-            .observe(viewLifecycleOwner) { t ->
-                val callback = TaskDiffUtils(vm.exercises, t!!)
-                val result = DiffUtil.calculateDiff(callback)
-                result.dispatchUpdatesTo(adapter)
-
-                vm.exercises.clear()
-                vm.exercises.addAll(t)
-            }
+        if (vm.exercises.size > 0) {
+            adapter.notifyListChange(0, vm.exercises.size + 1)
+        }
 
         binding.fab.setOnClickListener {
             findNavController().navigate(ManageExercisesFragmentDirections.actionMananageExercicesFragmentToAddExerciseFragment())
@@ -72,19 +66,9 @@ class ManageExercisesFragment : Fragment() {
         }
 
         override fun getItemCount(): Int = vm.exercises.size
-    }
 
-    inner class TaskDiffUtils(private val oldList: MutableList<Exercise>, private val newList: MutableList<Exercise>) : DiffUtil.Callback() {
-        override fun getOldListSize(): Int = oldList.size
-        override fun getNewListSize(): Int = newList.size
-
-        override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-            return oldList[oldItemPosition].id == newList[newItemPosition].id
+        fun notifyListChange(start: Int, end: Int) {
+            notifyItemRangeChanged(start, end)
         }
-
-        override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-            return oldList[oldItemPosition].title == newList[newItemPosition].title
-        }
-
     }
 }
