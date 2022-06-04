@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/PlansFragment"
         android:name="cz.mendelu.xpaseka.bodybeat.PlansFragment"
-        android:label="@string/first_fragment_label"
+        android:label="@string/workout_plans"
         tools:layout="@layout/fragment_plans">
 
         <action
@@ -23,7 +23,7 @@
     <fragment
         android:id="@+id/NewPlanFragment"
         android:name="cz.mendelu.xpaseka.bodybeat.NewPlanFragment"
-        android:label="@string/second_fragment_label"
+        android:label="@string/new_workout_plan"
         tools:layout="@layout/fragment_new_plan">
 
         <action
@@ -40,7 +40,7 @@
     <fragment
         android:id="@+id/ManageExercisesFragment"
         android:name="cz.mendelu.xpaseka.bodybeat.ManageExercisesFragment"
-        android:label="@string/second_fragment_label"
+        android:label="@string/manage_exercises"
         tools:layout="@layout/fragment_manage_exercises">
 
         <action
@@ -51,14 +51,20 @@
     <fragment
         android:id="@+id/AddExerciseFragment"
         android:name="cz.mendelu.xpaseka.bodybeat.AddExerciseFragment"
-        android:label="@string/second_fragment_label"
+        android:label="@string/add_exercise"
         tools:layout="@layout/fragment_add_exercise">
+
+        <argument
+            android:name="id"
+            app:argType="long"
+            android:defaultValue="-1L">
+        </argument>
     </fragment>
 
     <fragment
         android:id="@+id/PlanDetailFragment"
         android:name="cz.mendelu.xpaseka.bodybeat.PlanDetailFragment"
-        android:label="@string/second_fragment_label"
+        android:label="@string/plan_detail"
         tools:layout="@layout/fragment_plan_detail">
 
         <action
@@ -80,7 +86,7 @@
     <fragment
         android:id="@+id/PlanProgressFragment"
         android:name="cz.mendelu.xpaseka.bodybeat.PlanProgressFragment"
-        android:label="@string/second_fragment_label"
+        android:label="@string/plan_progress"
         tools:layout="@layout/fragment_plan_progress">
 
         <argument

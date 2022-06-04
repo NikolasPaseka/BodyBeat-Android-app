@@ -9,7 +9,7 @@ val viewModelModule = module {
         PlansViewModel(get())
     }
     viewModel {
-        NewPlanViewModel(get(), get())
+        NewPlanViewModel(get(), get(), get())
     }
     viewModel{
         PlanDetailViewModel(get())

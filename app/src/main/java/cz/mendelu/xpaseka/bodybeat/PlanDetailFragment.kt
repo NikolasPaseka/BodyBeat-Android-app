@@ -101,8 +101,8 @@ class PlanDetailFragment : BaseFragment<FragmentPlanDetailBinding, PlanDetailVie
 
         override fun onBindViewHolder(holder: ExerciseViewHolder, position: Int) {
             val exercise = viewModel.exerciseList.get(position)
-            holder.binding.exerciseName.text = exercise.title
-            holder.binding.exerciseNumbers.text = "${exercise.sets} x ${exercise.repeats}"
+            holder.binding.header.text = exercise.title
+            holder.binding.subheader.text = "${exercise.sets} x ${exercise.repeats}"
         }
 
         override fun getItemCount(): Int = viewModel.exerciseList.size

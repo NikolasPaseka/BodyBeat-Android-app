@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import cz.mendelu.xpaseka.bodybeat.architecture.BaseFragment
 import cz.mendelu.xpaseka.bodybeat.databinding.FragmentScheduleBinding
+import cz.mendelu.xpaseka.bodybeat.databinding.RowExerciseListBinding
 import cz.mendelu.xpaseka.bodybeat.databinding.RowPlanListBinding
 import cz.mendelu.xpaseka.bodybeat.model.Plan
 import cz.mendelu.xpaseka.bodybeat.model.Schedule
@@ -76,10 +77,15 @@ class ScheduleFragment : BaseFragment<FragmentScheduleBinding, ScheduleViewModel
     }
 
     private fun loadDaySchedule(day: String) {
+        val oldList: MutableList<ScheduleViewModel.PlanSchedule> = mutableListOf()
+        oldList.addAll(viewModel.planSchedules)
+
         lifecycleScope.launch {
             viewModel.getSchedulesByDay(day)
         }.invokeOnCompletion {
-            adapter.notifyListChange(0, viewModel.planSchedules.size+1)
+            val callback = TaskDiffUtils(oldList, viewModel.planSchedules)
+            val result = DiffUtil.calculateDiff(callback)
+            result.dispatchUpdatesTo(adapter)
         }
     }
 
@@ -180,9 +186,19 @@ class ScheduleFragment : BaseFragment<FragmentScheduleBinding, ScheduleViewModel
         }
 
         override fun getItemCount(): Int = viewModel.schedule.size
+    }
 
-        fun notifyListChange(start: Int, end: Int) {
-            notifyItemRangeChanged(start, end)
+    inner class TaskDiffUtils(private val oldList: MutableList<ScheduleViewModel.PlanSchedule>, private val newList: MutableList<ScheduleViewModel.PlanSchedule>) : DiffUtil.Callback() {
+        override fun getOldListSize(): Int = oldList.size
+        override fun getNewListSize(): Int = newList.size
+
+        override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+            return oldList[oldItemPosition].title == newList[newItemPosition].title
+        }
+
+        override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
+            return oldList[oldItemPosition].title == newList[newItemPosition].title
+                    && oldList[oldItemPosition].time == newList[newItemPosition].time
         }
     }
 

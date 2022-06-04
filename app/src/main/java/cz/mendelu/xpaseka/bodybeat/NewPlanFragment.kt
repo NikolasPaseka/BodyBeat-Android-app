@@ -7,16 +7,14 @@ import android.os.Bundle
 import android.util.Log
 import android.view.*
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import cz.mendelu.xpaseka.bodybeat.databinding.DialogAddScheduleBinding
-import cz.mendelu.xpaseka.bodybeat.databinding.DialogTimerBinding
-import cz.mendelu.xpaseka.bodybeat.databinding.FragmentNewPlanBinding
-import cz.mendelu.xpaseka.bodybeat.databinding.RowPlanListBinding
+import cz.mendelu.xpaseka.bodybeat.databinding.*
 import cz.mendelu.xpaseka.bodybeat.model.Plan
 import cz.mendelu.xpaseka.bodybeat.model.Schedule
 import kotlinx.coroutines.launch
@@ -29,7 +27,7 @@ class NewPlanFragment : Fragment() {
     private lateinit var binding: FragmentNewPlanBinding
     private val vm by sharedViewModel<NewPlanViewModel>()
 
-    private val arguments: PlanDetailFragmentArgs by navArgs()
+    private val arguments: NewPlanFragmentArgs by navArgs()
 
     private lateinit var layoutManager: LinearLayoutManager
     private lateinit var adapter: ScheduleAdapter
@@ -62,13 +60,15 @@ class NewPlanFragment : Fragment() {
             findNavController().navigate(NewPlanFragmentDirections.actionNewPlanFragmentToManageExercisesFragment())
         }
 
-        binding.addSchedule.setOnClickListener {
+        binding.addScheduleButton.setOnClickListener {
             setUpAddScheduleDialog()
         }
 
-        binding.fabSavePlan.setOnClickListener {
-            savePlan()
-        }
+//        binding.fabSavePlan.setOnClickListener {
+//            savePlan()
+//        }
+
+        if (arguments.id != -1L) { vm.isEditing = true }
 
         fillLayout()
 
@@ -79,7 +79,7 @@ class NewPlanFragment : Fragment() {
         vm.plan.title = binding.workoutPlanTitle.text
 
         lifecycleScope.launch {
-            if (arguments.id == -1L) {
+            if (!vm.isEditing) {
                 vm.insertPlan()
             } else {
                 vm.updatePlan()
@@ -103,7 +103,7 @@ class NewPlanFragment : Fragment() {
     }
 
     private fun fillLayout() {
-        if (arguments.id != -1L) {
+        if (vm.isEditing) {
             lifecycleScope.launch {
                 vm.getData(arguments.id)
             }.invokeOnCompletion {
@@ -203,7 +203,7 @@ class NewPlanFragment : Fragment() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        requireActivity().menuInflater.inflate(R.menu.menu_main, menu)
+        requireActivity().menuInflater.inflate(R.menu.menu_new_plan, menu)
         super.onCreateOptionsMenu(menu, inflater)
     }
 
@@ -212,7 +212,13 @@ class NewPlanFragment : Fragment() {
             android.R.id.home -> {
                 setUpCancelDialog()
                 return true
-            } else -> super.onOptionsItemSelected(item)
+            }
+            R.id.savePlan -> {
+                savePlan()
+                Toast.makeText(requireContext(), "Workout plan saved", Toast.LENGTH_SHORT).show()
+                return true
+            }
+            else -> super.onOptionsItemSelected(item)
         }
     }
 
@@ -239,18 +245,16 @@ class NewPlanFragment : Fragment() {
         vm.planId = null
         vm.exercises.clear()
         vm.schedules.clear()
-//        if (vm.exerciseList.value != null) {
-//            vm.exerciseList.value!!.clear()
-//        }
+        vm.isEditing = false
     }
 
     inner class ScheduleAdapter : RecyclerView.Adapter<ScheduleAdapter.ScheduleViewHolder>() {
 
-        inner class ScheduleViewHolder(val binding: RowPlanListBinding) : RecyclerView.ViewHolder(binding.root)
+        inner class ScheduleViewHolder(val binding: RowScheduleListBinding) : RecyclerView.ViewHolder(binding.root)
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ScheduleViewHolder {
             return ScheduleViewHolder(
-                RowPlanListBinding
+                RowScheduleListBinding
                     .inflate(LayoutInflater
                         .from(parent.context), parent, false))
         }
@@ -260,7 +264,17 @@ class NewPlanFragment : Fragment() {
                 val schedule = vm.schedules.get(position)
                 val time = Date(schedule.time)
                 val dateFormatter = SimpleDateFormat("HH:mm", Locale.getDefault())
-                holder.binding.rowPlanTitle.text = "${schedule.day} ${dateFormatter.format(time)}"
+                holder.binding.header.text = schedule.day
+                holder.binding.subheader.text = dateFormatter.format(time)
+                holder.binding.deleteButton.setOnClickListener {
+                    vm.schedules.remove(schedule)
+                    if (vm.isEditing) {
+                        lifecycleScope.launch {
+                            vm.deleteSchedule(schedule)
+                        }
+                    }
+                    notifyListChange(0, vm.schedules.size+1)
+                }
             }
         }
 

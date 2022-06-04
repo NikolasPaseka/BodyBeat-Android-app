@@ -15,13 +15,13 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/exerciseName"
+            android:id="@+id/header"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAppearance="@style/ListText"/>
 
         <TextView
-            android:id="@+id/exerciseNumbers"
+            android:id="@+id/subheader"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAppearance="@style/SubText" />

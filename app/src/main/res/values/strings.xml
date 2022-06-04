@@ -36,6 +36,14 @@
     <string name="cancel_dialog_title">Cancel creating new plan</string>
     <string name="cancel_dialog_sentence">Are you sure you want to cancel? All changes will be lost.</string>
     <string name="monthly_completion">Monthly completion</string>
+    <string name="workout_plans">Workout plans</string>
+    <string name="new_workout_plan">New workout plan</string>
+    <string name="add_exercise">Add exercise</string>
+    <string name="plan_detail">Plan Detail</string>
+    <string name="plan_progress">Plan progress</string>
+    <string name="save">Save</string>
+    <string name="edit_exercise">Edit exercise</string>
+    <string name="delete">Delete</string>
 
     <string-array name="days_array">
         <item>Monday</item>

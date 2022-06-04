@@ -66,22 +66,12 @@ class PlansFragment : BaseFragment<FragmentPlansBinding, PlansViewModel>(PlansVi
             val plan = planList.get(position)
             holder.binding.rowPlanTitle.text = plan.title
 
-            // nastaveni sudy radku na jinou barvu, musi se resit recyklace - vyresit elsem
-            if (position % 2 == 0) {
-                //holder.binding.root.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.green_lighter))
-                holder.binding.rowPlanTitleCard.setCardBackgroundColor(ContextCompat.getColor(requireContext(), R.color.green_lighter))
-            } else {
-                holder.binding.rowPlanTitleCard.setCardBackgroundColor(ContextCompat.getColor(requireContext(), R.color.green_darker))
-            }
-
             holder.binding.root.setOnClickListener {
                 val id: Long = plan.id!!
                 val directions = PlansFragmentDirections.actionPlansFragmentToPlanDetailFragment()
                 directions.id = id
                 findNavController().navigate(directions)
             }
-            // textcolor
-            // holder.binding.personName.setTextColor(textColor)
         }
 
         override fun getItemCount(): Int = planList.size

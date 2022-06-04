@@ -16,6 +16,7 @@ abstract class WorkoutsDatabase: RoomDatabase() {
     abstract fun plansDao(): PlansDao
     abstract fun scheduleDao(): ScheduleDao
     abstract fun scheduleLogDao(): ScheduleLogDao
+    abstract fun ExerciseDao(): ExerciseDao
 
     companion object {
         private var INSTANCE: WorkoutsDatabase? = null

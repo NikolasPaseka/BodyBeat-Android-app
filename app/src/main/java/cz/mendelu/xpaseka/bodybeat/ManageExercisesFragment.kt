@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import cz.mendelu.xpaseka.bodybeat.architecture.BaseFragment
 import cz.mendelu.xpaseka.bodybeat.databinding.FragmentManageExercisesBinding
 import cz.mendelu.xpaseka.bodybeat.databinding.RowExerciseListBinding
+import cz.mendelu.xpaseka.bodybeat.databinding.RowExerciseListClickableBinding
 import cz.mendelu.xpaseka.bodybeat.model.Exercise
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
@@ -50,19 +51,24 @@ class ManageExercisesFragment : Fragment() {
 
     inner class ExercisesAdapter : RecyclerView.Adapter<ExercisesAdapter.ExerciseViewHolder>() {
 
-        inner class ExerciseViewHolder(val binding: RowExerciseListBinding) : RecyclerView.ViewHolder(binding.root)
+        inner class ExerciseViewHolder(val binding: RowExerciseListClickableBinding) : RecyclerView.ViewHolder(binding.root)
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ExerciseViewHolder {
             return ExerciseViewHolder(
-                RowExerciseListBinding
+                RowExerciseListClickableBinding
                     .inflate(LayoutInflater
                         .from(parent.context), parent, false))
         }
 
         override fun onBindViewHolder(holder: ExerciseViewHolder, position: Int) {
             val exercise = vm.exercises.get(position)
-            holder.binding.exerciseName.text = exercise.title
-            holder.binding.exerciseNumbers.text = "${exercise.sets} x ${exercise.repeats}"
+            holder.binding.header.text = exercise.title
+            holder.binding.subheader.text = "${exercise.sets} x ${exercise.repeats}"
+            holder.binding.root.setOnClickListener {
+                val directions = ManageExercisesFragmentDirections.actionMananageExercicesFragmentToAddExerciseFragment()
+                directions.id = position.toLong()
+                findNavController().navigate(directions)
+            }
         }
 
         override fun getItemCount(): Int = vm.exercises.size
