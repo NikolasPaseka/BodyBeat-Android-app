@@ -25,6 +25,13 @@
             android:src="@drawable/ic_image_upload"/>
 
         <com.google.android.material.button.MaterialButton
+            android:id="@+id/selectLocationButton"
+            android:layout_width="wrap_content"
+            style="@style/ConfirmButton"
+            android:text="@string/select_location"
+            android:layout_margin="16dp"/>
+
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/postDataButton"
             android:layout_width="wrap_content"
             style="@style/ConfirmButton"

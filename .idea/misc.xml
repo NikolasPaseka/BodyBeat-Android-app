@@ -21,7 +21,7 @@
         <entry key="app/src/main/res/layout/dialog_add_schedule.xml" value="0.3515625" />
         <entry key="app/src/main/res/layout/dialog_countdown.xml" value="0.3120471014492754" />
         <entry key="app/src/main/res/layout/dialog_timer.xml" value="0.2977737426757812" />
-        <entry key="app/src/main/res/layout/fragment_add_exercise.xml" value="0.3120471014492754" />
+        <entry key="app/src/main/res/layout/fragment_add_exercise.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_manage_exercises.xml" value="0.3120471014492754" />
         <entry key="app/src/main/res/layout/fragment_new_plan.xml" value="0.32986069831295295" />
         <entry key="app/src/main/res/layout/fragment_park_detail.xml" value="0.19746376811594202" />
@@ -30,6 +30,8 @@
         <entry key="app/src/main/res/layout/fragment_plan_progress.xml" value="0.35714980630768345" />
         <entry key="app/src/main/res/layout/fragment_plans.xml" value="0.2776268115942029" />
         <entry key="app/src/main/res/layout/fragment_schedule.xml" value="0.32880354768237074" />
+        <entry key="app/src/main/res/layout/fragment_select_location_map.xml" value="0.3515625" />
+        <entry key="app/src/main/res/layout/fragment_settings.xml" value="0.3515625" />
         <entry key="app/src/main/res/layout/fragment_upload_park.xml" value="0.25" />
         <entry key="app/src/main/res/layout/row_exercise_list.xml" value="0.18161094224924013" />
         <entry key="app/src/main/res/layout/row_exercise_list_clickable.xml" value="0.3515625" />
@@ -46,7 +48,10 @@
         <entry key="app/src/main/res/menu/menu_main.xml" value="0.2388888888888889" />
         <entry key="app/src/main/res/menu/menu_new_plan.xml" value="0.29444444444444445" />
         <entry key="app/src/main/res/menu/menu_plan_detail.xml" value="0.3515625" />
+        <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.105" />
+        <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.1" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_logo.xml" value="0.105" />
+        <entry key="app/src/main/res/mipmap-anydpi-v26/ic_logo_round.xml" value="0.1" />
       </map>
     </option>
   </component>

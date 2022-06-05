@@ -36,12 +36,12 @@
                 android:layout_margin="16dp">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/repeats"
+                    android:id="@+id/sets"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:maxLength="3"
                     android:maxLines="1"
-                    android:hint="@string/repeats"
+                    android:hint="@string/sets"
                     android:inputType="number"/>
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -60,23 +60,25 @@
                 android:layout_margin="16dp">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/sets"
+                    android:id="@+id/repeats"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:maxLength="3"
                     android:maxLines="1"
-                    android:hint="@string/sets"
+                    android:hint="@string/repeats"
                     android:inputType="number"/>
 
             </com.google.android.material.textfield.TextInputLayout>
+
         </LinearLayout>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/addExerciseButton"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:text="@string/add_exercise"
             style="@style/ConfirmButton"
+            android:paddingStart="32dp"
+            android:paddingEnd="32dp"
             android:layout_gravity="center"/>
 
     </LinearLayout>

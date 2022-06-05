@@ -176,5 +176,24 @@
         android:name="cz.mendelu.xpaseka.bodybeat.UploadParkFragment"
         android:label="@string/upload_workout_park"
         tools:layout="@layout/fragment_upload_park">
+
+        <action
+            android:id="@+id/action_UploadParkFragment_to_SelectLocationMapFragment"
+            app:destination="@+id/SelectLocationMapFragment"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/SelectLocationMapFragment"
+        android:name="cz.mendelu.xpaseka.bodybeat.SelectLocationMapFragment"
+        android:label="@string/select_location"
+        tools:layout="@layout/fragment_select_location_map">
+    </fragment>
+
+    <!-- Settings -->
+    <fragment
+        android:id="@+id/SettingsFragment"
+        android:name="cz.mendelu.xpaseka.bodybeat.SettingsFragment"
+        android:label="@string/action_settings"
+        tools:layout="@layout/fragment_settings">
     </fragment>
 </navigation>

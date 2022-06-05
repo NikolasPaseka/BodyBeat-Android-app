@@ -47,6 +47,11 @@
     <string name="upcoming_exercises">Upcoming exercises</string>
     <string name="between_series">between series</string>
     <string name="between_exercises">between exercises</string>
+    <string name="select_location">Select location</string>
+    <string name="apply">Apply</string>
+    <string name="change_effect">Change will make effect after application restart</string>
+    <string name="choose_language">Choose language</string>
+    <string name="app_version">App version:</string>
 
     <string-array name="days_array">
         <item>Monday</item>
@@ -56,5 +61,11 @@
         <item>Friday</item>
         <item>Saturday</item>
         <item>Sunday</item>
+    </string-array>
+
+    <string-array name="language_array">
+        <item>System</item>
+        <item>English</item>
+        <item>Czech</item>
     </string-array>
 </resources>

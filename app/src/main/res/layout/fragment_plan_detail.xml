@@ -55,6 +55,8 @@
         android:id="@+id/startWorkoutButton"
         style="@style/ConfirmButton"
         android:layout_width="wrap_content"
+        android:paddingStart="32dp"
+        android:paddingEnd="32dp"
         android:text="@string/start_workout"
         app:layout_constraintTop_toBottomOf="@id/timerInfo"
         app:layout_constraintBottom_toTopOf="@id/exercisesSpacer"

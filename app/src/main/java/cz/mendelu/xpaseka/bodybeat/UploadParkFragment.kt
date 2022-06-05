@@ -6,6 +6,7 @@ import android.graphics.Bitmap
 import android.view.LayoutInflater
 import android.widget.Toast
 import androidx.core.graphics.drawable.toBitmap
+import androidx.navigation.fragment.findNavController
 import com.cloudinary.android.MediaManager
 import cz.mendelu.xpaseka.bodybeat.architecture.BaseFragment
 import cz.mendelu.xpaseka.bodybeat.databinding.FragmentUploadParkBinding
@@ -39,6 +40,10 @@ class UploadParkFragment : BaseFragment<FragmentUploadParkBinding, UploadParkVie
 
         binding.parkImage.setOnClickListener {
             openGalleryForImage()
+        }
+
+        binding.selectLocationButton.setOnClickListener {
+            findNavController().navigate(UploadParkFragmentDirections.actionUploadParkFragmentToSelectLocationMapFragment())
         }
 
         binding.postDataButton.setOnClickListener {
