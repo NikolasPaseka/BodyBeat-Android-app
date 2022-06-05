@@ -2,18 +2,14 @@ package cz.mendelu.xpaseka.bodybeat
 
 import android.os.Bundle
 import android.view.*
-import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import cz.mendelu.xpaseka.bodybeat.architecture.BaseFragment
 import cz.mendelu.xpaseka.bodybeat.databinding.FragmentAddExerciseBinding
 import cz.mendelu.xpaseka.bodybeat.model.Exercise
+import cz.mendelu.xpaseka.bodybeat.utils.ErrorTextWatcher
 import kotlinx.coroutines.launch
-import org.koin.androidx.viewmodel.ext.android.getViewModel
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class AddExerciseFragment : Fragment() {
@@ -35,6 +31,8 @@ class AddExerciseFragment : Fragment() {
             setHasOptionsMenu(true)
         }
 
+        binding.exerciseTitle.addTextChangeListener(ErrorTextWatcher(binding.exerciseTitle))
+
         binding.addExerciseButton.setOnClickListener {
             saveExercise()
         }
@@ -45,28 +43,37 @@ class AddExerciseFragment : Fragment() {
     private fun fillLayout() {
         val exercise = vm.exercises[arguments.id.toInt()]
         binding.exerciseTitle.text = exercise.title
-        binding.repeats.text = exercise.repeats.toString()
-        binding.sets.text = exercise.sets.toString()
+        binding.repeats.setText(exercise.repeats.toString())
+        binding.sets.setText(exercise.sets.toString())
 
         binding.addExerciseButton.text = getString(R.string.edit_exercise)
     }
 
     private fun saveExercise() {
-        if (arguments.id != -1L) {
-            val exercise = vm.exercises[arguments.id.toInt()]
-            exercise.title = binding.exerciseTitle.text
-            exercise.repeats = binding.repeats.text.toInt()
-            exercise.sets = binding.sets.text.toInt()
-            if (vm.isEditing) {
-                lifecycleScope.launch {
-                    vm.updateExercise(exercise)
+        if (binding.exerciseTitle.text.isNotEmpty()) {
+            var repeats = 0
+            var sets = 0
+            if (binding.repeats.text.toString().isNotEmpty()) { repeats = binding.repeats.text.toString().toInt() }
+            if (binding.sets.text.toString().isNotEmpty()) { sets = binding.sets.text.toString().toInt() }
+
+            if (arguments.id != -1L) {
+                val exercise = vm.exercises[arguments.id.toInt()]
+                exercise.title = binding.exerciseTitle.text
+                exercise.repeats = repeats
+                exercise.sets = sets
+                if (vm.isEditing) {
+                    lifecycleScope.launch {
+                        vm.updateExercise(exercise)
+                    }
                 }
+            } else {
+                val exercise = Exercise(binding.exerciseTitle.text, repeats, sets)
+                vm.exercises.add(exercise)
             }
+            findNavController().popBackStack()
         } else {
-            val exercise = Exercise(binding.exerciseTitle.text, binding.repeats.text.toInt(), binding.sets.text.toInt())
-            vm.exercises.add(exercise)
+            binding.exerciseTitle.setError(getString(R.string.cannot_be_empty))
         }
-        findNavController().popBackStack()
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

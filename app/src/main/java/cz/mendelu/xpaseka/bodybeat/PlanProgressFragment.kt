@@ -7,6 +7,7 @@ import android.os.CountDownTimer
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
 import cz.mendelu.xpaseka.bodybeat.architecture.BaseFragment
 import cz.mendelu.xpaseka.bodybeat.databinding.DialogCountdownBinding
 import cz.mendelu.xpaseka.bodybeat.databinding.FragmentPlanProgressBinding
+import cz.mendelu.xpaseka.bodybeat.databinding.RowExerciseListBinding
 import cz.mendelu.xpaseka.bodybeat.databinding.RowPlanListBinding
 import cz.mendelu.xpaseka.bodybeat.model.Exercise
 import kotlinx.coroutines.launch
@@ -76,10 +78,13 @@ class PlanProgressFragment : BaseFragment<FragmentPlanProgressBinding, PlanProgr
                     switchToNextExercise()
                     setUpCountdownDialog(viewModel.plan.timerSeries)
                 } else {
-                    binding.currentExerciseTitle.text = "All done congrats"
-                    lifecycleScope.launch {
-                        viewModel.logFinishedWorkout()
-                    }
+                    // TODO zobrazit zpravu o dokonceni
+                    val directions = PlanProgressFragmentDirections.actionPlanProgressFragmentToPlanDetailFragment()
+                    directions.id = arguments.id
+                    findNavController().navigate(directions)
+//                    lifecycleScope.launch {
+//                        viewModel.logFinishedWorkout()
+//                    }
                 }
             }
         }
@@ -89,6 +94,7 @@ class PlanProgressFragment : BaseFragment<FragmentPlanProgressBinding, PlanProgr
         viewModel.currentExercise = adapter.deleteItem(0)
         if (viewModel.currentExercise != null) {
             binding.currentExerciseTitle.text = viewModel.currentExercise!!.title
+            binding.currentExerciseSetsAndRepeats.text = "${viewModel.currentExercise!!.sets} x ${viewModel.currentExercise!!.repeats}"
             changeSetsLabel()
         }
     }
@@ -101,10 +107,13 @@ class PlanProgressFragment : BaseFragment<FragmentPlanProgressBinding, PlanProgr
         val countdownDialogBinding = DialogCountdownBinding.inflate(LayoutInflater.from(requireContext()))
         val dialogBuilder = AlertDialog.Builder(requireContext())
             .setView(countdownDialogBinding.root)
-            .setCancelable(true)
-            // change to false in production
+            .setCancelable(false)
         val countdownDialog = dialogBuilder.show()
         countdownDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+
+        countdownDialogBinding.doneButton.setOnClickListener {
+            countdownDialog.dismiss()
+        }
 
         val circularProgressBar = countdownDialogBinding.circularProgressBar
         circularProgressBar.apply {
@@ -112,12 +121,14 @@ class PlanProgressFragment : BaseFragment<FragmentPlanProgressBinding, PlanProgr
             progress = 0f
             setProgressWithAnimation(progress, 1000) // =1s
 
-            progressBarWidth = 7f
+            progressBarWidth = 10f
         }
         var i = 0
+        var remainingTime = timer
         val countDownTimer = object: CountDownTimer(timer.toLong()*1000, 1000){
             override fun onTick(millisUntilFinished: Long) {
-                countdownDialogBinding.timer.text = "$i"
+                remainingTime -= 1
+                countdownDialogBinding.timer.text = getTimerLabel(remainingTime)
                 i++
                 circularProgressBar.setProgressWithAnimation(i.toFloat(), 200)
             }
@@ -129,20 +140,31 @@ class PlanProgressFragment : BaseFragment<FragmentPlanProgressBinding, PlanProgr
         countDownTimer.start()
     }
 
+    fun getTimerLabel(time: Int): String {
+        val minutes = time / 60
+        val seconds = time % 60
+        if (seconds >= 10) {
+            return "${minutes}:${seconds}"
+        } else {
+            return "${minutes}:0${seconds}"
+        }
+    }
+
     inner class ExercisesAdapter : RecyclerView.Adapter<ExercisesAdapter.ExerciseViewHolder>() {
 
-        inner class ExerciseViewHolder(val binding: RowPlanListBinding) : RecyclerView.ViewHolder(binding.root)
+        inner class ExerciseViewHolder(val binding: RowExerciseListBinding) : RecyclerView.ViewHolder(binding.root)
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ExerciseViewHolder {
             return ExerciseViewHolder(
-                RowPlanListBinding
+                RowExerciseListBinding
                     .inflate(LayoutInflater
                         .from(parent.context), parent, false))
         }
 
         override fun onBindViewHolder(holder: ExerciseViewHolder, position: Int) {
-            val exercise = viewModel.exerciseList.get(position)
-            holder.binding.rowPlanTitle.text = exercise.title
+            val exercise = viewModel.exerciseList[position]
+            holder.binding.header.text = exercise.title
+            holder.binding.subheader.text = "${exercise.sets} x ${exercise.repeats}"
         }
 
         fun deleteItem(index: Int): Exercise{

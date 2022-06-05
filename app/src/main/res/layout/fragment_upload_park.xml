@@ -22,13 +22,14 @@
             android:id="@+id/parkImage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_launcher_background"/>
+            android:src="@drawable/ic_image_upload"/>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/postDataButton"
             android:layout_width="wrap_content"
             style="@style/ConfirmButton"
-            android:text="@string/upload_park"/>
+            android:text="@string/upload_park"
+            android:layout_margin="16dp"/>
 
     </LinearLayout>
 

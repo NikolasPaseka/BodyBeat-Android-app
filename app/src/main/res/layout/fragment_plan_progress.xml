@@ -10,7 +10,7 @@
             android:id="@+id/currentExerciseText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Current Exercise"
+            android:text="@string/current_exercise"
             android:textAppearance="@style/TextHeader"
             android:layout_marginTop="32dp"
             app:layout_constraintStart_toStartOf="parent"
@@ -23,17 +23,41 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:padding="16dp"
+            android:layout_gravity="center"
             app:layout_constraintTop_toBottomOf="@id/currentExerciseText"
             app:layout_constraintBottom_toTopOf="@id/exerciseDoneButton">
-           <TextView
-               android:id="@+id/currentExerciseTitle"
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content"/>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/currentExerciseTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="@style/ListText"/>
+
+                <TextView
+                    android:id="@+id/currentExerciseSetsAndRepeats"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="@style/SubText"/>
+
+            </LinearLayout>
 
            <TextView
                android:id="@+id/currentSetTitle"
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content"/>
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_gravity="center"
+               android:layout_marginEnd="16dp"
+               android:text="1/3"
+               android:textColor="@color/white"
+               android:background="@drawable/bg_rounded"/>
         </LinearLayout>
 
        <com.google.android.material.button.MaterialButton
@@ -41,7 +65,7 @@
            android:layout_width="wrap_content"
            android:layout_height="wrap_content"
            style="@style/ConfirmButton"
-           android:text="Done"
+           android:text="@string/done"
            app:layout_constraintTop_toBottomOf="@id/currentExerciseBlock"
            app:layout_constraintStart_toStartOf="parent"
            app:layout_constraintEnd_toEndOf="parent"/>
@@ -52,7 +76,7 @@
         android:layout_height="wrap_content"
         style="@style/SpacerLabel"
         android:textAppearance="@style/SpacerLabelText"
-        android:text="Upcoming exercises"
+        android:text="@string/upcoming_exercises"
         app:layout_constraintTop_toBottomOf="@id/exerciseDoneButton"
         app:layout_constraintBottom_toTopOf="@id/upcomingExercisesList"/>
 

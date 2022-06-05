@@ -14,15 +14,53 @@
         app:layout_constraintTop_toTopOf="parent"
         android:padding="16dp"/>
 
+    <LinearLayout
+        android:id="@+id/timerInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@id/planTitle"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteX="0dp"
+        android:gravity="center"
+        android:padding="8dp"
+        android:layout_margin="8dp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_access_time_filled"
+            app:tint="@color/grey_sub_text"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/seriesTimerInfo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/exerciseTimerInfo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+    </LinearLayout>
+
     <com.google.android.material.button.MaterialButton
         android:id="@+id/startWorkoutButton"
         style="@style/ConfirmButton"
         android:layout_width="wrap_content"
         android:text="@string/start_workout"
-        app:layout_constraintTop_toBottomOf="@id/planTitle"
+        app:layout_constraintTop_toBottomOf="@id/timerInfo"
         app:layout_constraintBottom_toTopOf="@id/exercisesSpacer"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="16dp"/>
 
     <TextView
         android:id="@+id/exercisesSpacer"

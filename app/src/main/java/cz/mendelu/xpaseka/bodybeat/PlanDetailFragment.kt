@@ -38,6 +38,9 @@ class PlanDetailFragment : BaseFragment<FragmentPlanDetailBinding, PlanDetailVie
         val textView: TextView = binding.planTitle
         textView.text = viewModel.plan.title
 
+        binding.seriesTimerInfo.text = getTimerLabel(viewModel.plan.timerSeries) + " " + getString(R.string.between_series)
+        binding.exerciseTimerInfo.text = getTimerLabel(viewModel.plan.timerExercises) + " " + getString(R.string.between_exercises)
+
         val recyclerView = binding.exerciseList
         layoutManager = LinearLayoutManager(requireContext())
         adapter = ExercisesAdapter()
@@ -57,6 +60,16 @@ class PlanDetailFragment : BaseFragment<FragmentPlanDetailBinding, PlanDetailVie
             val directions = PlanDetailFragmentDirections.actionPlanDetailFragmentToPlanProgressFragment()
             directions.id = arguments.id
             findNavController().navigate(directions)
+        }
+    }
+
+    fun getTimerLabel(time: Int): String {
+        val minutes = time / 60
+        val seconds = time % 60
+        return if (seconds >= 10) {
+            "${minutes}:${seconds}"
+        } else {
+            "${minutes}:0${seconds}"
         }
     }
 
@@ -100,7 +113,7 @@ class PlanDetailFragment : BaseFragment<FragmentPlanDetailBinding, PlanDetailVie
         }
 
         override fun onBindViewHolder(holder: ExerciseViewHolder, position: Int) {
-            val exercise = viewModel.exerciseList.get(position)
+            val exercise = viewModel.exerciseList[position]
             holder.binding.header.text = exercise.title
             holder.binding.subheader.text = "${exercise.sets} x ${exercise.repeats}"
         }

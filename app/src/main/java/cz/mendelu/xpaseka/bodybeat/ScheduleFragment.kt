@@ -1,26 +1,22 @@
 package cz.mendelu.xpaseka.bodybeat
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import cz.mendelu.xpaseka.bodybeat.architecture.BaseFragment
 import cz.mendelu.xpaseka.bodybeat.databinding.FragmentScheduleBinding
-import cz.mendelu.xpaseka.bodybeat.databinding.RowExerciseListBinding
 import cz.mendelu.xpaseka.bodybeat.databinding.RowPlanListBinding
-import cz.mendelu.xpaseka.bodybeat.model.Plan
+import cz.mendelu.xpaseka.bodybeat.databinding.RowSheduleListInfoBinding
 import cz.mendelu.xpaseka.bodybeat.model.Schedule
 import cz.mendelu.xpaseka.bodybeat.model.ScheduleLog
 import cz.mendelu.xpaseka.bodybeat.view.WeekDayPickerView
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
-import java.time.DayOfWeek
 import java.util.*
 import kotlin.math.roundToInt
 
@@ -142,7 +138,7 @@ class ScheduleFragment : BaseFragment<FragmentScheduleBinding, ScheduleViewModel
                     progress = completion
                     setProgressWithAnimation(progress, 1000)
 
-                    progressBarWidth = 7f
+                    progressBarWidth = 10f
                 }
 
                 setSelectedCalendarText()
@@ -165,27 +161,27 @@ class ScheduleFragment : BaseFragment<FragmentScheduleBinding, ScheduleViewModel
 
     inner class ScheduleAdapter : RecyclerView.Adapter<ScheduleAdapter.ScheduleViewHolder>() {
 
-        inner class ScheduleViewHolder(val binding: RowPlanListBinding) : RecyclerView.ViewHolder(binding.root)
+        inner class ScheduleViewHolder(val binding: RowSheduleListInfoBinding) : RecyclerView.ViewHolder(binding.root)
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ScheduleViewHolder {
             return ScheduleViewHolder(
-                RowPlanListBinding
+                RowSheduleListInfoBinding
                     .inflate(LayoutInflater
                         .from(parent.context), parent, false))
         }
 
         override fun onBindViewHolder(holder: ScheduleViewHolder, position: Int) {
             if (position < viewModel.planSchedules.size) {
-                val planSchedule = viewModel.planSchedules.get(position)
+                val planSchedule = viewModel.planSchedules[position]
 
                 val time = Date(planSchedule.time)
                 val dateFormatter = SimpleDateFormat("HH:mm", Locale.US)
-                holder.binding.rowPlanTitle.text =
-                    "${planSchedule.title} ${dateFormatter.format(time)}"
+                holder.binding.rowScheduleTitle.text = planSchedule.title
+                holder.binding.rowScheduleTime.text = dateFormatter.format(time)
             }
         }
 
-        override fun getItemCount(): Int = viewModel.schedule.size
+        override fun getItemCount(): Int = viewModel.planSchedules.size
     }
 
     inner class TaskDiffUtils(private val oldList: MutableList<ScheduleViewModel.PlanSchedule>, private val newList: MutableList<ScheduleViewModel.PlanSchedule>) : DiffUtil.Callback() {

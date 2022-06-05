@@ -4,6 +4,10 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import cz.mendelu.xpaseka.bodybeat.database.Dao.ExerciseDao
+import cz.mendelu.xpaseka.bodybeat.database.Dao.PlansDao
+import cz.mendelu.xpaseka.bodybeat.database.Dao.ScheduleDao
+import cz.mendelu.xpaseka.bodybeat.database.Dao.ScheduleLogDao
 import cz.mendelu.xpaseka.bodybeat.model.Exercise
 import cz.mendelu.xpaseka.bodybeat.model.Plan
 import cz.mendelu.xpaseka.bodybeat.model.Schedule

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name" translatable="false">BodyBeat</string>
+    <string name="action_settings">Nastavení</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="next">Další</string>
+    <string name="previous">Předchozí</string>
+
+    <string name="start_workout">Začít trénink</string>
+    <string name="exercises">Cviky</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_main2">MainActivity2</string>
+    <string name="plans">Plány</string>
+    <string name="schedule">Rozvrh</string>
+    <string name="parks">Parky</string>
+    <string name="my_schedule">Můj rozvrh</string>
+    <string name="workout_parks">Posilovací parky</string>
+    <string name="show_location">Zobrazit lokaci</string>
+    <string name="workout_park_detail">Detail posilovacího parku</string>
+    <string name="workout_park_location">Lokace posilovacího parku</string>
+    <string name="upload_workout_park">Nahraj posilovací park</string>
+    <string name="upload_park">Nahraj park</string>
+    <string name="park_name">Název parku</string>
+    <string name="manage_exercises">Správa cviků</string>
+    <string name="add_to_schedule">Přidej do rozvrhu</string>
+    <string name="edit_plan">Upravit plán</string>
+    <string name="delete_plan">Smazat plán</string>
+    <string name="exercise_timer">Čas mezi cviky</string>
+    <string name="series_timer">Čas mezi sériemi</string>
+
+    <string name="cancel_dialog_title">Zrušit vytváření nového plánu</string>
+    <string name="cancel_dialog_sentence">Opravdu chceš zrušit vytváření? Všechny změny budou ztraceny</string>
+    <string name="monthly_completion">Měsíční dokončení</string>
+    <string name="workout_plans">Cvičební plány</string>
+    <string name="new_workout_plan">Nový cvičební plán</string>
+    <string name="add_exercise">Přidat cvik</string>
+    <string name="plan_detail">Detail plánu</string>
+    <string name="plan_progress">Průběh plánu</string>
+    <string name="save">Uložit</string>
+    <string name="edit_exercise">Upravit cvik</string>
+    <string name="delete">Smazat</string>
+    <string name="repeats">Opakování</string>
+    <string name="sets">Série</string>
+    <string name="cannot_be_empty">Nemůže být prázdný</string>
+    <string name="close">Zavřít</string>
+    <string name="done">Hotovo</string>
+
+    <string-array name="days_array">
+        <item>Monday</item>
+        <item>Tuesday</item>
+        <item>Wednesday</item>
+        <item>Thursday</item>
+        <item>Friday</item>
+        <item>Saturday</item>
+        <item>Sunday</item>
+    </string-array>
+</resources>

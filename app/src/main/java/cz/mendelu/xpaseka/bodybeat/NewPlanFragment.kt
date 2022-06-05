@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView
 import cz.mendelu.xpaseka.bodybeat.databinding.*
 import cz.mendelu.xpaseka.bodybeat.model.Plan
 import cz.mendelu.xpaseka.bodybeat.model.Schedule
+import cz.mendelu.xpaseka.bodybeat.utils.ErrorTextWatcher
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import java.text.SimpleDateFormat
@@ -64,9 +65,7 @@ class NewPlanFragment : Fragment() {
             setUpAddScheduleDialog()
         }
 
-//        binding.fabSavePlan.setOnClickListener {
-//            savePlan()
-//        }
+        binding.workoutPlanTitle.addTextChangeListener(ErrorTextWatcher(binding.workoutPlanTitle))
 
         if (arguments.id != -1L) { vm.isEditing = true }
 
@@ -76,29 +75,33 @@ class NewPlanFragment : Fragment() {
     }
 
     private fun savePlan() {
-        vm.plan.title = binding.workoutPlanTitle.text
+        if (binding.workoutPlanTitle.text.isNotEmpty()) {
+            vm.plan.title = binding.workoutPlanTitle.text
 
-        lifecycleScope.launch {
-            if (!vm.isEditing) {
-                vm.insertPlan()
-            } else {
-                vm.updatePlan()
-            }
-            vm.exercises.forEach { e ->
-                if (e.id == null) {
-                    e.planId = vm.planId
-                    vm.insertExercise(e)
+            lifecycleScope.launch {
+                if (!vm.isEditing) {
+                    vm.insertPlan()
+                } else {
+                    vm.updatePlan()
                 }
-            }
-            vm.schedules.forEach { s ->
-                if (s.id == null) {
-                    s.planId = vm.planId
-                    vm.insertSchedule(s)
+                vm.exercises.forEach { e ->
+                    if (e.id == null) {
+                        e.planId = vm.planId
+                        vm.insertExercise(e)
+                    }
                 }
+                vm.schedules.forEach { s ->
+                    if (s.id == null) {
+                        s.planId = vm.planId
+                        vm.insertSchedule(s)
+                    }
+                }
+            }.invokeOnCompletion {
+                clearViewModel()
+                findNavController().popBackStack()
             }
-        }.invokeOnCompletion {
-            clearViewModel()
-            findNavController().popBackStack()
+        } else {
+            binding.workoutPlanTitle.setError(getString(R.string.cannot_be_empty))
         }
     }
 
@@ -261,7 +264,7 @@ class NewPlanFragment : Fragment() {
 
         override fun onBindViewHolder(holder: ScheduleViewHolder, position: Int) {
             if (position < vm.schedules.size) {
-                val schedule = vm.schedules.get(position)
+                val schedule = vm.schedules[position]
                 val time = Date(schedule.time)
                 val dateFormatter = SimpleDateFormat("HH:mm", Locale.getDefault())
                 holder.binding.header.text = schedule.day

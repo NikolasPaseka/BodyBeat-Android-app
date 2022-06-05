@@ -1,20 +1,11 @@
-package cz.mendelu.xpaseka.bodybeat.database
+package cz.mendelu.xpaseka.bodybeat.database.irepository
 
-import androidx.room.*
 import cz.mendelu.xpaseka.bodybeat.model.Exercise
-import cz.mendelu.xpaseka.bodybeat.model.ScheduleLog
 
-@Dao
-interface ExerciseDao {
-    @Query("SELECT * FROM exercises")
+interface IExerciseLocalRepository {
     suspend fun getAll(): MutableList<Exercise>
-
-    @Insert
+    suspend fun getNumberOfExercisesByPlan(id: Long): Int
     suspend fun insert(exercise: Exercise): Long
-
-    @Update
     suspend fun update(exercise: Exercise)
-
-    @Delete
     suspend fun delete(exercise: Exercise)
 }

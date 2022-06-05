@@ -1,20 +1,15 @@
 package cz.mendelu.xpaseka.bodybeat
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import cz.mendelu.xpaseka.bodybeat.architecture.BaseFragment
 import cz.mendelu.xpaseka.bodybeat.databinding.FragmentManageExercisesBinding
-import cz.mendelu.xpaseka.bodybeat.databinding.RowExerciseListBinding
 import cz.mendelu.xpaseka.bodybeat.databinding.RowExerciseListClickableBinding
-import cz.mendelu.xpaseka.bodybeat.model.Exercise
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class ManageExercisesFragment : Fragment() {
@@ -61,7 +56,7 @@ class ManageExercisesFragment : Fragment() {
         }
 
         override fun onBindViewHolder(holder: ExerciseViewHolder, position: Int) {
-            val exercise = vm.exercises.get(position)
+            val exercise = vm.exercises[position]
             holder.binding.header.text = exercise.title
             holder.binding.subheader.text = "${exercise.sets} x ${exercise.repeats}"
             holder.binding.root.setOnClickListener {

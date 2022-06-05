@@ -1,8 +1,11 @@
-package cz.mendelu.xpaseka.bodybeat.database
+package cz.mendelu.xpaseka.bodybeat.database.repository
 
+import cz.mendelu.xpaseka.bodybeat.database.Dao.ScheduleLogDao
+import cz.mendelu.xpaseka.bodybeat.database.irepository.IScheduleLogLocalRepository
 import cz.mendelu.xpaseka.bodybeat.model.ScheduleLog
 
-class ScheduleLogLocalRepositoryImpl(private val scheduleLogDao: ScheduleLogDao) : IScheduleLogLocalRepository {
+class ScheduleLogLocalRepositoryImpl(private val scheduleLogDao: ScheduleLogDao) :
+    IScheduleLogLocalRepository {
     override suspend fun getAll(): MutableList<ScheduleLog> {
         return scheduleLogDao.getAll()
     }

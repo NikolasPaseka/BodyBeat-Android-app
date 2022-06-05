@@ -1,20 +1,18 @@
 package cz.mendelu.xpaseka.bodybeat
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import cz.mendelu.xpaseka.bodybeat.database.IExerciseLocalRepository
-import cz.mendelu.xpaseka.bodybeat.database.IPlansLocalRepository
-import cz.mendelu.xpaseka.bodybeat.database.IScheduleLocalRepository
+import cz.mendelu.xpaseka.bodybeat.database.irepository.IExerciseLocalRepository
+import cz.mendelu.xpaseka.bodybeat.database.irepository.IPlansLocalRepository
+import cz.mendelu.xpaseka.bodybeat.database.irepository.IScheduleLocalRepository
 import cz.mendelu.xpaseka.bodybeat.model.Exercise
 import cz.mendelu.xpaseka.bodybeat.model.Plan
 import cz.mendelu.xpaseka.bodybeat.model.Schedule
-import kotlin.system.exitProcess
 
 class NewPlanViewModel(
     private val repository: IPlansLocalRepository,
     private val scheduleRepository: IScheduleLocalRepository,
-    private val exerciseRepository: IExerciseLocalRepository) : ViewModel() {
+    private val exerciseRepository: IExerciseLocalRepository
+) : ViewModel() {
 
     var plan = Plan("", 0, 0)
     var planId: Long? = null

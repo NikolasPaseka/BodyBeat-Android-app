@@ -17,23 +17,67 @@
             android:layout_height="wrap_content"
             app:hint="Exercise title"/>
 
-        <cz.mendelu.xpaseka.bodybeat.view.TextInputView
-            android:id="@+id/repeats"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:hint="Repeats"/>
+            android:orientation="horizontal">
 
-        <cz.mendelu.xpaseka.bodybeat.view.TextInputView
-            android:id="@+id/sets"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:hint="Sets"/>
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:errorEnabled="true"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                app:boxCornerRadiusBottomEnd="20dp"
+                app:boxCornerRadiusTopEnd="20dp"
+                app:boxCornerRadiusBottomStart="20dp"
+                app:boxCornerRadiusTopStart="20dp"
+                android:layout_margin="16dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/repeats"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:maxLength="3"
+                    android:maxLines="1"
+                    android:hint="@string/repeats"
+                    android:inputType="number"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:errorEnabled="true"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                app:boxCornerRadiusBottomEnd="20dp"
+                app:boxCornerRadiusTopEnd="20dp"
+                app:boxCornerRadiusBottomStart="20dp"
+                app:boxCornerRadiusTopStart="20dp"
+                android:layout_margin="16dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/sets"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:maxLength="3"
+                    android:maxLines="1"
+                    android:hint="@string/sets"
+                    android:inputType="number"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/addExerciseButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Add exercise"/>
+            android:text="@string/add_exercise"
+            style="@style/ConfirmButton"
+            android:layout_gravity="center"/>
 
     </LinearLayout>
 

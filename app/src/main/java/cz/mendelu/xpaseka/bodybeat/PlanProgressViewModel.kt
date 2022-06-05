@@ -2,8 +2,8 @@ package cz.mendelu.xpaseka.bodybeat
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import cz.mendelu.xpaseka.bodybeat.database.IPlansLocalRepository
-import cz.mendelu.xpaseka.bodybeat.database.IScheduleLogLocalRepository
+import cz.mendelu.xpaseka.bodybeat.database.irepository.IPlansLocalRepository
+import cz.mendelu.xpaseka.bodybeat.database.irepository.IScheduleLogLocalRepository
 import cz.mendelu.xpaseka.bodybeat.model.Exercise
 import cz.mendelu.xpaseka.bodybeat.model.Plan
 import cz.mendelu.xpaseka.bodybeat.model.ScheduleLog

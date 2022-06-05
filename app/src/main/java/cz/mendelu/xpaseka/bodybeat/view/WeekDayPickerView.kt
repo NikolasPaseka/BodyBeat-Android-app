@@ -1,14 +1,9 @@
 package cz.mendelu.xpaseka.bodybeat.view
 
 import android.content.Context
-import android.text.TextWatcher
 import android.util.AttributeSet
-import android.util.Log
 import android.view.LayoutInflater
 import android.widget.FrameLayout
-import android.widget.Toast
-import androidx.core.content.ContentProviderCompat.requireContext
-import androidx.core.content.ContextCompat
 import cz.mendelu.xpaseka.bodybeat.R
 import cz.mendelu.xpaseka.bodybeat.databinding.ViewWeekDayPickerBinding
 
@@ -40,11 +35,6 @@ class WeekDayPickerView @JvmOverloads constructor(
         }
         binding.dayText.text = labelAttr
         attributes.recycle()
-    }
-
-    fun selectDay(): String {
-        binding.dayText.text = "vyser si"
-        return day
     }
 
 }

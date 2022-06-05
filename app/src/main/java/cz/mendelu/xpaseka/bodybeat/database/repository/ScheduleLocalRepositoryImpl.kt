@@ -1,6 +1,8 @@
-package cz.mendelu.xpaseka.bodybeat.database
+package cz.mendelu.xpaseka.bodybeat.database.repository
 
 import androidx.lifecycle.LiveData
+import cz.mendelu.xpaseka.bodybeat.database.Dao.ScheduleDao
+import cz.mendelu.xpaseka.bodybeat.database.irepository.IScheduleLocalRepository
 import cz.mendelu.xpaseka.bodybeat.model.Schedule
 
 class ScheduleLocalRepositoryImpl(private val scheduleDao: ScheduleDao) : IScheduleLocalRepository {

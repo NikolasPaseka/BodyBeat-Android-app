@@ -89,6 +89,10 @@
         android:label="@string/plan_progress"
         tools:layout="@layout/fragment_plan_progress">
 
+        <action
+            android:id="@+id/action_PlanProgressFragment_to_PlanDetailFragment"
+            app:destination="@+id/PlanDetailFragment"/>
+
         <argument
             android:name="id"
             app:argType="long"

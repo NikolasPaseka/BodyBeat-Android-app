@@ -1,4 +1,4 @@
-package cz.mendelu.xpaseka.bodybeat.database
+package cz.mendelu.xpaseka.bodybeat.database.irepository
 
 import androidx.lifecycle.LiveData
 

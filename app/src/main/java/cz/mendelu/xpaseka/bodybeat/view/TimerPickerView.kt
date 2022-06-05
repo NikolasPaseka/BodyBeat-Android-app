@@ -1,12 +1,9 @@
 package cz.mendelu.xpaseka.bodybeat.view
 
 import android.content.Context
-import android.text.TextWatcher
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.FrameLayout
-import cz.mendelu.xpaseka.bodybeat.R
-import cz.mendelu.xpaseka.bodybeat.databinding.ViewTextInputBinding
 import cz.mendelu.xpaseka.bodybeat.databinding.ViewTimerPickerBinding
 
 class TimerPickerView @JvmOverloads constructor(

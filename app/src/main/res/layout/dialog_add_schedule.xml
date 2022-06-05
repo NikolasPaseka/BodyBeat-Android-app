@@ -40,7 +40,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
             android:padding="16dp"
-            android:text="Close"/>
+            android:text="@string/close"/>
 
         <TextView
             android:id="@+id/saveButton"
@@ -48,7 +48,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
             android:padding="16dp"
-            android:text="Save"
+            android:text="@string/save"
             android:textColor="@color/orange"/>
     </LinearLayout>
 

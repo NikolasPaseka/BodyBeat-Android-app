@@ -1,7 +1,6 @@
-package cz.mendelu.xpaseka.bodybeat.database
+package cz.mendelu.xpaseka.bodybeat.database.irepository
 
 import androidx.lifecycle.LiveData
-import androidx.room.Insert
 import cz.mendelu.xpaseka.bodybeat.model.Exercise
 import cz.mendelu.xpaseka.bodybeat.model.Plan
 

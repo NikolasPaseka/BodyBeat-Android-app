@@ -50,7 +50,7 @@ abstract class BaseFragment<B : ViewBinding,
         }
     }
 
-    fun hideKeyboard() {
+    private fun hideKeyboard() {
         activity?.let {
             val inputManager: InputMethodManager = it.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             val currentFocusedView: View? = requireActivity().currentFocus

@@ -1,4 +1,4 @@
-package cz.mendelu.xpaseka.bodybeat.database
+package cz.mendelu.xpaseka.bodybeat.database.Dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.*

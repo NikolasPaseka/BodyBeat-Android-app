@@ -1,6 +1,10 @@
 package cz.mendelu.xpaseka.bodybeat.di
 
 import cz.mendelu.xpaseka.bodybeat.database.*
+import cz.mendelu.xpaseka.bodybeat.database.Dao.ExerciseDao
+import cz.mendelu.xpaseka.bodybeat.database.Dao.PlansDao
+import cz.mendelu.xpaseka.bodybeat.database.Dao.ScheduleDao
+import cz.mendelu.xpaseka.bodybeat.database.Dao.ScheduleLogDao
 import org.koin.dsl.module
 
 val daoModule = module {

@@ -11,9 +11,9 @@ import retrofit2.http.GET
 
 class ParksViewModel : ViewModel() {
     // 10.0.2.2 is localhost address of PC not android emulator
-    private val base_url = "http://10.0.2.2:3000/parks/"
+    private val baseUrl = "http://10.0.2.2:3000/parks/"
     private val moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
-    private val retrofit = Retrofit.Builder().addConverterFactory(MoshiConverterFactory.create(moshi)).baseUrl(base_url).build()
+    private val retrofit = Retrofit.Builder().addConverterFactory(MoshiConverterFactory.create(moshi)).baseUrl(baseUrl).build()
 
     interface ApiService {
         @GET(".")

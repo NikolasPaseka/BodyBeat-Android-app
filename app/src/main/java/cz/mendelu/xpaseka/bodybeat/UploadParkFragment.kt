@@ -6,15 +6,14 @@ import android.graphics.Bitmap
 import android.view.LayoutInflater
 import android.widget.Toast
 import androidx.core.graphics.drawable.toBitmap
-import androidx.navigation.fragment.findNavController
 import com.cloudinary.android.MediaManager
 import cz.mendelu.xpaseka.bodybeat.architecture.BaseFragment
 import cz.mendelu.xpaseka.bodybeat.databinding.FragmentUploadParkBinding
 import cz.mendelu.xpaseka.bodybeat.model.Park
+import cz.mendelu.xpaseka.bodybeat.utils.ErrorTextWatcher
 import retrofit2.Call
 import retrofit2.Response
 import java.io.ByteArrayOutputStream
-import java.lang.IllegalStateException
 
 
 class UploadParkFragment : BaseFragment<FragmentUploadParkBinding, UploadParkViewModel>(UploadParkViewModel::class) {
@@ -25,9 +24,9 @@ class UploadParkFragment : BaseFragment<FragmentUploadParkBinding, UploadParkVie
         get() = FragmentUploadParkBinding::inflate
 
     override fun initViews() {
-        var config: HashMap<String, String> = HashMap()
-        config.put("cloud_name", "passy")
-        config.put("secure", "true");
+        val config: HashMap<String, String> = HashMap()
+        config["cloud_name"] = "passy"
+        config["secure"] = "true"
 //        config.put("api_key", "your API Key")
 //        config.put("api_secret", "your API secret")
         try {
@@ -36,6 +35,7 @@ class UploadParkFragment : BaseFragment<FragmentUploadParkBinding, UploadParkVie
             e.printStackTrace()
         }
 
+        binding.parkName.addTextChangeListener(ErrorTextWatcher(binding.parkName))
 
         binding.parkImage.setOnClickListener {
             openGalleryForImage()
@@ -49,7 +49,7 @@ class UploadParkFragment : BaseFragment<FragmentUploadParkBinding, UploadParkVie
                 finishCurrentFragment()
             } else {
                 if (binding.parkName.text.isEmpty()) {
-                    binding.parkName.setError("Cannot be empty")
+                    binding.parkName.setError(getString(R.string.cannot_be_empty))
                 }
                 if (!isImagePicked) {
                     Toast.makeText(requireContext(), "Image is not picked", Toast.LENGTH_SHORT).show()
