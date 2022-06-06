@@ -27,7 +27,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Minutes"/>
+                android:text="@string/minutes"/>
 
         </LinearLayout>
 
@@ -47,7 +47,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Seconds"/>
+                android:text="@string/seconds"/>
 
         </LinearLayout>
 

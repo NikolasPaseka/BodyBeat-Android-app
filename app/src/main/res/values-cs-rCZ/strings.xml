@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name" translatable="false">BodyBeat</string>
+    <string name="app_name">BodyBeat</string>
     <string name="action_settings">Nastavení</string>
     <!-- Strings used for fragments for navigation -->
     <string name="next">Další</string>
@@ -18,11 +18,11 @@
     <string name="show_location">Zobrazit lokaci</string>
     <string name="workout_park_detail">Detail posilovacího parku</string>
     <string name="workout_park_location">Lokace posilovacího parku</string>
-    <string name="upload_workout_park">Nahraj posilovací park</string>
-    <string name="upload_park">Nahraj park</string>
+    <string name="upload_workout_park">Nahrát posilovací park</string>
+    <string name="upload_park">Nahrát park</string>
     <string name="park_name">Název parku</string>
     <string name="manage_exercises">Správa cviků</string>
-    <string name="add_to_schedule">Přidej do rozvrhu</string>
+    <string name="add_to_schedule">Přidat do rozvrhu</string>
     <string name="edit_plan">Upravit plán</string>
     <string name="delete_plan">Smazat plán</string>
     <string name="exercise_timer">Čas mezi cviky</string>
@@ -41,9 +41,43 @@
     <string name="delete">Smazat</string>
     <string name="repeats">Opakování</string>
     <string name="sets">Série</string>
-    <string name="cannot_be_empty">Nemůže být prázdný</string>
+    <string name="cannot_be_empty">Musí být vyplněno</string>
     <string name="close">Zavřít</string>
     <string name="done">Hotovo</string>
+    <string name="current_exercise">Momentální cvik</string>
+    <string name="upcoming_exercises">Nadcházející cvik</string>
+    <string name="between_series">Mezi sériemi</string>
+    <string name="between_exercises">Mezi cviky</string>
+    <string name="select_location">Vybrat lokaci</string>
+    <string name="apply">Použít</string>
+    <string name="change_effect">Změna se provede až po restartování aplikace</string>
+    <string name="choose_language">Vybrat jazyk</string>
+    <string name="app_version">Verze aplikace:</string>
+    <string name="workout_plan_saved">Cvičební plán uložen</string>
+    <string name="park_uploaded">Park nahraný</string>
+    <string name="image_is_not_picked">Obrázek nebyl vybraný</string>
+    <string name="workout_done_congratulations">Cvičení dokončeno. Gratulace!!</string>
+    <string name="ok">OK</string>
+    <string name="you_have_not_choosen_any_location">Nebyla zvolena lokace</string>
+    <string name="minutes">Minuty</string>
+    <string name="seconds">Sekundy</string>
+
+    <!--    Days -->
+    <string name="mon">PON</string>
+    <string name="tue">ÚTE</string>
+    <string name="wen">STŘ</string>
+    <string name="thu">ČTV</string>
+    <string name="fri">PÁT</string>
+    <string name="sat">SOB</string>
+    <string name="sun">NED</string>
+
+    <string name="monday">Pondělí</string>
+    <string name="tuesday">Úterý</string>
+    <string name="wednesday">Středa</string>
+    <string name="thursday">Čtvrtek</string>
+    <string name="friday">Pátek</string>
+    <string name="saturday">Sobota</string>
+    <string name="sunday">Neděle</string>
 
     <string-array name="days_array">
         <item>Pondělí</item>

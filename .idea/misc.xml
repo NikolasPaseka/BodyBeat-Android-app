@@ -21,6 +21,7 @@
         <entry key="app/src/main/res/layout/dialog_add_schedule.xml" value="0.3515625" />
         <entry key="app/src/main/res/layout/dialog_countdown.xml" value="0.3120471014492754" />
         <entry key="app/src/main/res/layout/dialog_timer.xml" value="0.2977737426757812" />
+        <entry key="app/src/main/res/layout/dialog_workout_done.xml" value="0.3138586956521739" />
         <entry key="app/src/main/res/layout/fragment_add_exercise.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_manage_exercises.xml" value="0.3120471014492754" />
         <entry key="app/src/main/res/layout/fragment_new_plan.xml" value="0.32986069831295295" />
@@ -48,6 +49,7 @@
         <entry key="app/src/main/res/menu/menu_main.xml" value="0.2388888888888889" />
         <entry key="app/src/main/res/menu/menu_new_plan.xml" value="0.29444444444444445" />
         <entry key="app/src/main/res/menu/menu_plan_detail.xml" value="0.3515625" />
+        <entry key="app/src/main/res/menu/menu_save.xml" value="0.3515625" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.105" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.1" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_logo.xml" value="0.105" />

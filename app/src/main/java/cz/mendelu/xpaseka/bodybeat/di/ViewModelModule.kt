@@ -1,6 +1,11 @@
 package cz.mendelu.xpaseka.bodybeat.di
 
-import cz.mendelu.xpaseka.bodybeat.*
+import cz.mendelu.xpaseka.bodybeat.fragments.ScheduleViewModel
+import cz.mendelu.xpaseka.bodybeat.fragments.parks.*
+import cz.mendelu.xpaseka.bodybeat.fragments.plans.NewPlanViewModel
+import cz.mendelu.xpaseka.bodybeat.fragments.plans.PlanDetailViewModel
+import cz.mendelu.xpaseka.bodybeat.fragments.plans.PlanProgressViewModel
+import cz.mendelu.xpaseka.bodybeat.fragments.plans.PlansViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
@@ -31,5 +36,8 @@ val viewModelModule = module {
     }
     viewModel {
         UploadParkViewModel()
+    }
+    viewModel {
+        SelectLocationViewModel()
     }
 }

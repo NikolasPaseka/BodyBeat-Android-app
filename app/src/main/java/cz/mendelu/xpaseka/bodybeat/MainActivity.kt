@@ -2,9 +2,7 @@ package cz.mendelu.xpaseka.bodybeat
 
 import android.content.res.Resources
 import android.graphics.PorterDuff
-import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View

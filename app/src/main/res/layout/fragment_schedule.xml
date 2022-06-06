@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ScheduleFragment">
+    tools:context=".fragments.ScheduleFragment">
 
     <LinearLayout
         android:id="@+id/weekDayPicker"
@@ -21,50 +21,56 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:day="monday"
-            app:label="MON"/>
+            app:label="@string/mon"/>
         <cz.mendelu.xpaseka.bodybeat.view.WeekDayPickerView
             android:id="@+id/tuesdayPicker"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:day="tuesday"
-            app:label="TUE"/>
+            app:label="@string/tue"/>
         <cz.mendelu.xpaseka.bodybeat.view.WeekDayPickerView
             android:id="@+id/wednesdayPicker"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:day="wednesday"
-            app:label="WEN"/>
+            app:label="@string/wen"/>
         <cz.mendelu.xpaseka.bodybeat.view.WeekDayPickerView
             android:id="@+id/thursdayPicker"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:day="thursday"
-            app:label="THU"/>
+            app:label="@string/thu"/>
         <cz.mendelu.xpaseka.bodybeat.view.WeekDayPickerView
             android:id="@+id/fridayPicker"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:day="friday"
-            app:label="FRI"/>
+            app:label="@string/fri"/>
         <cz.mendelu.xpaseka.bodybeat.view.WeekDayPickerView
             android:id="@+id/saturdayPicker"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:day="saturday"
-            app:label="SAT"/>
+            app:label="@string/sat"/>
         <cz.mendelu.xpaseka.bodybeat.view.WeekDayPickerView
             android:id="@+id/sundayPicker"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:day="sunday"
-            app:label="SUN"/>
+            app:label="@string/sun"/>
     </LinearLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/scheduleList"
+    <androidx.core.widget.NestedScrollView
+        app:layout_constraintTop_toBottomOf="@id/weekDayPicker"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/weekDayPicker"/>
+        android:layout_height="250dp">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/scheduleList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/weekDayPicker"/>
+    </androidx.core.widget.NestedScrollView>
 
     <TextView
         android:layout_width="match_parent"

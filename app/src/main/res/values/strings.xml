@@ -52,6 +52,31 @@
     <string name="change_effect">Change will make effect after application restart</string>
     <string name="choose_language">Choose language</string>
     <string name="app_version">App version:</string>
+    <string name="workout_plan_saved">Workout plan saved</string>
+    <string name="park_uploaded">Park uploaded</string>
+    <string name="image_is_not_picked">Image is not picked</string>
+
+    <!--    Days -->
+    <string name="mon">MON</string>
+    <string name="tue">TUE</string>
+    <string name="wen">WEN</string>
+    <string name="thu">THU</string>
+    <string name="fri">FRI</string>
+    <string name="sat">SAT</string>
+    <string name="sun">SUN</string>
+
+    <string name="monday">Monday</string>
+    <string name="tuesday">Tuesday</string>
+    <string name="wednesday">Wednesday</string>
+    <string name="thursday">Thursday</string>
+    <string name="friday">Friday</string>
+    <string name="saturday">Saturday</string>
+    <string name="sunday">Sunday</string>
+    <string name="workout_done_congratulations">Workout done. Congratulations!!</string>
+    <string name="ok">OK</string>
+    <string name="you_have_not_choosen_any_location">You have not chosen any location</string>
+    <string name="minutes">Minutes</string>
+    <string name="seconds">Seconds</string>
 
     <string-array name="days_array">
         <item>Monday</item>

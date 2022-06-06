@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/PlansFragment"
-        android:name="cz.mendelu.xpaseka.bodybeat.PlansFragment"
+        android:name="cz.mendelu.xpaseka.bodybeat.fragments.plans.PlansFragment"
         android:label="@string/workout_plans"
         tools:layout="@layout/fragment_plans">
 
@@ -22,7 +22,7 @@
 
     <fragment
         android:id="@+id/NewPlanFragment"
-        android:name="cz.mendelu.xpaseka.bodybeat.NewPlanFragment"
+        android:name="cz.mendelu.xpaseka.bodybeat.fragments.plans.NewPlanFragment"
         android:label="@string/new_workout_plan"
         tools:layout="@layout/fragment_new_plan">
 
@@ -39,7 +39,7 @@
 
     <fragment
         android:id="@+id/ManageExercisesFragment"
-        android:name="cz.mendelu.xpaseka.bodybeat.ManageExercisesFragment"
+        android:name="cz.mendelu.xpaseka.bodybeat.fragments.plans.ManageExercisesFragment"
         android:label="@string/manage_exercises"
         tools:layout="@layout/fragment_manage_exercises">
 
@@ -50,7 +50,7 @@
 
     <fragment
         android:id="@+id/AddExerciseFragment"
-        android:name="cz.mendelu.xpaseka.bodybeat.AddExerciseFragment"
+        android:name="cz.mendelu.xpaseka.bodybeat.fragments.plans.AddExerciseFragment"
         android:label="@string/add_exercise"
         tools:layout="@layout/fragment_add_exercise">
 
@@ -63,7 +63,7 @@
 
     <fragment
         android:id="@+id/PlanDetailFragment"
-        android:name="cz.mendelu.xpaseka.bodybeat.PlanDetailFragment"
+        android:name="cz.mendelu.xpaseka.bodybeat.fragments.plans.PlanDetailFragment"
         android:label="@string/plan_detail"
         tools:layout="@layout/fragment_plan_detail">
 
@@ -85,7 +85,7 @@
 
     <fragment
         android:id="@+id/PlanProgressFragment"
-        android:name="cz.mendelu.xpaseka.bodybeat.PlanProgressFragment"
+        android:name="cz.mendelu.xpaseka.bodybeat.fragments.plans.PlanProgressFragment"
         android:label="@string/plan_progress"
         tools:layout="@layout/fragment_plan_progress">
 
@@ -104,7 +104,7 @@
     <!--  Schedule  -->
     <fragment
         android:id="@+id/ScheduleFragment"
-        android:name="cz.mendelu.xpaseka.bodybeat.ScheduleFragment"
+        android:name="cz.mendelu.xpaseka.bodybeat.fragments.ScheduleFragment"
         android:label="@string/my_schedule"
         tools:layout="@layout/fragment_schedule">
     </fragment>
@@ -112,7 +112,7 @@
     <!-- Parks -->
     <fragment
         android:id="@+id/ParksFragment"
-        android:name="cz.mendelu.xpaseka.bodybeat.ParksFragment"
+        android:name="cz.mendelu.xpaseka.bodybeat.fragments.parks.ParksFragment"
         android:label="@string/workout_parks"
         tools:layout="@layout/fragment_parks">
 
@@ -127,7 +127,7 @@
 
     <fragment
         android:id="@+id/ParkDetailFragment"
-        android:name="cz.mendelu.xpaseka.bodybeat.ParkDetailFragment"
+        android:name="cz.mendelu.xpaseka.bodybeat.fragments.parks.ParkDetailFragment"
         android:label="@string/workout_park_detail"
         tools:layout="@layout/fragment_park_detail">
 
@@ -156,7 +156,7 @@
 
     <fragment
         android:id="@+id/ParkMapFragment"
-        android:name="cz.mendelu.xpaseka.bodybeat.ParkMapFragment"
+        android:name="cz.mendelu.xpaseka.bodybeat.fragments.parks.ParkMapFragment"
         android:label="@string/workout_park_location"
         tools:layout="@layout/fragment_park_map">
 
@@ -173,7 +173,7 @@
 
     <fragment
         android:id="@+id/UploadParkFragment"
-        android:name="cz.mendelu.xpaseka.bodybeat.UploadParkFragment"
+        android:name="cz.mendelu.xpaseka.bodybeat.fragments.parks.UploadParkFragment"
         android:label="@string/upload_workout_park"
         tools:layout="@layout/fragment_upload_park">
 
@@ -184,7 +184,7 @@
 
     <fragment
         android:id="@+id/SelectLocationMapFragment"
-        android:name="cz.mendelu.xpaseka.bodybeat.SelectLocationMapFragment"
+        android:name="cz.mendelu.xpaseka.bodybeat.fragments.parks.SelectLocationMapFragment"
         android:label="@string/select_location"
         tools:layout="@layout/fragment_select_location_map">
     </fragment>
@@ -192,7 +192,7 @@
     <!-- Settings -->
     <fragment
         android:id="@+id/SettingsFragment"
-        android:name="cz.mendelu.xpaseka.bodybeat.SettingsFragment"
+        android:name="cz.mendelu.xpaseka.bodybeat.fragments.SettingsFragment"
         android:label="@string/action_settings"
         tools:layout="@layout/fragment_settings">
     </fragment>
